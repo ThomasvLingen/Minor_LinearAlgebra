@@ -34,6 +34,7 @@ int main()
         screen_width, screen_height,
         SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN
     );
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     SDL_GLContext glcontext = SDL_GL_CreateContext(window);
 
     // Setup ImGui binding
@@ -62,6 +63,9 @@ int main()
         glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui::Render();
+
+        // SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        // SDL_RenderDrawLine(renderer, 0,0,500,500);
         SDL_GL_SwapWindow(window);
     }
 
