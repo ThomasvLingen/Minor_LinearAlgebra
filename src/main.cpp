@@ -28,8 +28,14 @@ int main()
     SDL_DisplayMode current;
     SDL_GetCurrentDisplayMode(0, &current);
     SDL_Window *window = SDL_CreateWindow("ImGui SDL2+OpenGL3 example", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
+    std::cout << SDL_GetError() << std::endl;
     SDL_GLContext glcontext = SDL_GL_CreateContext(window);
-    gl3wInit();
+    std::cout << SDL_GetError() << std::endl;
+
+    if(gl3wInit()){
+        std::cout << "Failed gl3wInit" << std::endl;
+    }
+
 
     // Setup ImGui binding
     ImGui_ImplSdlGL3_Init(window);
