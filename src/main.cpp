@@ -7,6 +7,9 @@
 using std::cout;
 using std::endl;
 
+const int screen_width = 640;
+const int screen_height = 480;
+
 int main()
 {
     std::cout << "Hi" << std::endl;
@@ -25,7 +28,12 @@ int main()
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
     SDL_DisplayMode current;
     SDL_GetCurrentDisplayMode(0, &current);
-    SDL_Window *window = SDL_CreateWindow("ImGui SDL2+OpenGL example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN);
+    SDL_Window* window = SDL_CreateWindow(
+        "ImGui SDL2+OpenGL example",
+        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+        screen_width, screen_height,
+        SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN
+    );
     SDL_GLContext glcontext = SDL_GL_CreateContext(window);
 
     // Setup ImGui binding
