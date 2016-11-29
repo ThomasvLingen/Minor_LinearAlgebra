@@ -5,14 +5,13 @@ CC = g++
 LD = $(CC)
 
 IMGUI_PATH = libs/imgui
-GL3W_PATH = libs/GL
 
 # Compiler flags
 # Wall = all warnings
 # Wextra = extra warnings
 # g = debug symbols
 # std=c++11 = C++11
-INCLUDE_PATHS = -Isrc/ -I$(IMGUI_PATH) -I$(GL3W_PATH)/include
+INCLUDE_PATHS = -Isrc/ -I$(IMGUI_PATH)
 COMPILER_FLAGS = -Wall -Wextra -g -std=c++11 $(INCLUDE_PATHS)
 
 # Linker flags
@@ -38,18 +37,8 @@ EXEC = $(BUILD_PATH)$(PROGRAM_NAME)
 SRC_PATH += ${shell find $(IMGUI_PATH) -name '*.cpp' -not -path '$(IMGUI_PATH)/examples/*' -not -path '$(IMGUI_PATH)/extra_fonts/*'}
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
-# Gl3w stuff
-GL3W_SRC = $(GL3W_PATH)/src/gl3w.c
-GL3W_OBJ = $(GL3W_SRC:.c=.o)
-SRC_PATH += $(GL3W_SRC)
-OBJ_FILES += $(GL3W_OBJ)
-
 # Compile stuff
 %.o : %.cpp
-	@echo CC $<
-	$(SILENT) $(CC) -c $< $(COMPILER_FLAGS) -o $@
-
-%.o : %.c
 	@echo CC $<
 	$(SILENT) $(CC) -c $< $(COMPILER_FLAGS) -o $@
 
