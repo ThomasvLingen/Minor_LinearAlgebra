@@ -27,6 +27,9 @@ void MainMenuBar::GUI_logic()
                     this->add_vector_sum_open = true;
                 }
             }
+            if (ImGui::MenuItem("Quit")) {
+                this->_context._running = false;
+            }
 
             ImGui::EndMenu();
         }
