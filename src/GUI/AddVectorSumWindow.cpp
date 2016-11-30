@@ -39,6 +39,10 @@ void AddVectorSumWindow::GUI_logic()
             this->_context._sum_vectors.push_back(this->_context._vectors[from] + this->_context._vectors[to]);
         }
 
+        this->_context._selected_vectors.clear();
+        this->_context._selected_vectors.push_back(this->_context._vectors[from]);
+        this->_context._selected_vectors.push_back(this->_context._vectors[to]);
+
         ImGui::End();
     }
 }

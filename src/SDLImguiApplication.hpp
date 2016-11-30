@@ -41,6 +41,7 @@ private:
 
     std::vector<DrawableLinalVector> _vectors;
     std::vector<DrawableLinalVector> _sum_vectors;
+    std::vector<DrawableLinalVector> _selected_vectors;
 
     void _handle_SDL_events();
     void _GUI_logic();

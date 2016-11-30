@@ -103,7 +103,8 @@ bool SDLImguiApplication::_init_imgui()
 void SDLImguiApplication::run()
 {
     ImVec4 normal_line_color = (ImVec4)ImColor(255, 0, 0);
-    ImVec4 sum_line_color = (ImVec4)ImColor(0, 255, 0);
+    ImVec4 sum_line_color = (ImVec4)ImColor(0, 0, 255);
+    ImVec4 selected_line_color = (ImVec4)ImColor(0, 255, 0);
 
     this->_set_OpenGL_coordinate_mode();
 
@@ -121,6 +122,10 @@ void SDLImguiApplication::run()
 
         for (auto& brommer : this->_sum_vectors) {
             brommer.draw(sum_line_color);
+        }
+
+        for (auto& v : this->_selected_vectors) {
+            v.draw(selected_line_color);
         }
 
         // Let ImGui render
