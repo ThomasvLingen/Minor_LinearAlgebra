@@ -31,7 +31,7 @@ private:
     std::vector<DrawableLinalVector> _sum_vectors;
 
     void _handle_SDL_events();
-    void _do_gui();
+    void _GUI_logic();
 
     void _set_OpenGL_coordinate_mode();
     bool _init_SDL();

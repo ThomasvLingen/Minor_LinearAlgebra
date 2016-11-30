@@ -108,7 +108,7 @@ void SDLImguiApplication::run()
     while (this->_running) {
         this->_handle_SDL_events();
 
-        this->_do_gui();
+        this->_GUI_logic();
 
         // Clear screen
         glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
@@ -154,7 +154,7 @@ void SDLImguiApplication::_handle_SDL_events()
     }
 }
 
-void SDLImguiApplication::_do_gui()
+void SDLImguiApplication::_GUI_logic()
 {
     static bool add_vector_open = false;
     static bool sum_of_vectors_open = false;
