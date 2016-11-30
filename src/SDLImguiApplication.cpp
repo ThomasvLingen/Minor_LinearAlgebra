@@ -18,6 +18,7 @@ SDLImguiApplication::SDLImguiApplication()
 , _running(true)
 , _main_menu(*this)
 , _add_vector_window(*this)
+, _add_vector_sum_window(*this)
 {
     if (!this->_init_SDL()) {
         cout << "Could not init SDL" << endl;
@@ -166,32 +167,5 @@ void SDLImguiApplication::_GUI_logic()
 
     this->_main_menu.GUI_logic();
     this->_add_vector_window.GUI_logic();
-
-    // encaps [
-    if (this->_main_menu.add_vector_sum_open) {
-        // build vector list
-        // TODO: This is ugly and stupid
-        vector<string> names;
-        for (int i = 0; i < this->_vectors.size(); i++) {
-            names.push_back(std::to_string(i));
-        }
-        vector<const char*> names_c_str;
-        for (size_t i = 0; i < names.size(); ++i) {
-            names_c_str.push_back(names[i].c_str());
-        }
-
-        static int from = 0;
-        static int to = 0;
-
-        ImGui::Begin("Sum of vectors", &this->_main_menu.add_vector_sum_open);
-        ImGui::ListBox("From", &from, names_c_str.data(), (int)names.size());
-        ImGui::ListBox("To", &to, names_c_str.data(), (int)names.size());
-
-        if (ImGui::Button("Add sum")) {
-            this->_sum_vectors.push_back(this->_vectors[from] + this->_vectors[to]);
-        }
-
-        ImGui::End();
-    }
-    // ]
+    this->_add_vector_sum_window.GUI_logic();
 }

@@ -14,10 +14,12 @@
 #include "linal/DrawableLinalVector.hpp"
 #include "GUI/MainMenuBar.hpp"
 #include "GUI/AddVectorWindow.hpp"
+#include "GUI/AddVectorSumWindow.hpp"
 
 class SDLImguiApplication {
 friend class MainMenuBar;
 friend class AddVectorWindow;
+friend class AddVectorSumWindow;
 
 public:
     SDLImguiApplication();
@@ -35,6 +37,7 @@ private:
     // GUI elements
     MainMenuBar _main_menu;
     AddVectorWindow _add_vector_window;
+    AddVectorSumWindow _add_vector_sum_window;
 
     std::vector<DrawableLinalVector> _vectors;
     std::vector<DrawableLinalVector> _sum_vectors;
