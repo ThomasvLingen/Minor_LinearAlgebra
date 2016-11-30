@@ -9,10 +9,12 @@
 #include "linal/DrawableLinalVector.hpp"
 
 #include <vector>
+#include <string>
 
 using std::cout;
 using std::endl;
 using std::vector;
+using std::string;
 
 SDLImguiApplication::SDLImguiApplication()
 : _window(nullptr)
@@ -107,6 +109,8 @@ void SDLImguiApplication::run()
     this->_set_OpenGL_coordinate_mode();
 
     bool add_vector_open = false;
+    bool sum_of_vectors_open = false;
+
     vector<DrawableLinalVector> vectors;
 
     while (this->_running) {
@@ -125,6 +129,12 @@ void SDLImguiApplication::run()
             if (ImGui::BeginMenu("File")) {
                 if (ImGui::MenuItem("Add vector")) {
                     add_vector_open = true;
+                }
+                if (ImGui::MenuItem("Sum of vectors")) {
+                    // We only want this to open if there are actually vectors to take a sum of
+                    if (vectors.size() > 0) {
+                        sum_of_vectors_open = true;
+                    }
                 }
 
                 ImGui::EndMenu();
@@ -146,6 +156,27 @@ void SDLImguiApplication::run()
                 vectors.push_back(DrawableLinalVector(vector_dir_x, vector_dir_y));
             }
 
+            ImGui::End();
+        }
+
+        if (sum_of_vectors_open) {
+            // build vector list
+            // TODO: This is ugly and stupid
+            vector<string> names;
+            for (int i = 0; i < vectors.size(); i++) {
+                names.push_back(std::to_string(i));
+            }
+            vector<const char*> names_c_str;
+            for (size_t i = 0; i < names.size(); ++i) {
+                names_c_str.push_back(names[i].c_str());
+            }
+
+            static int from = 0;
+            static int to = 0;
+
+            ImGui::Begin("Sum of vectors", &sum_of_vectors_open);
+            ImGui::ListBox("From", &from, names_c_str.data(), (int)names.size());
+            ImGui::ListBox("To", &to, names_c_str.data(), (int)names.size());
             ImGui::End();
         }
 
