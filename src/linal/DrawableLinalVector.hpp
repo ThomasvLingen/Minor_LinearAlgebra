@@ -7,11 +7,13 @@
 
 
 #include "LinalVector.hpp"
+#include <imgui.h>
 
 class DrawableLinalVector : public LinalVector {
 public:
     DrawableLinalVector(int dir_x, int dir_y);
-    void draw();
+    DrawableLinalVector(LinalVector obj);
+    void draw(ImVec4 color);
 private:
 };
 

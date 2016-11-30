@@ -105,6 +105,8 @@ bool SDLImguiApplication::_init_imgui()
 void SDLImguiApplication::run()
 {
     ImVec4 clear_color = (ImVec4)ImColor(255, 255, 255);
+    ImVec4 normal_line_color = (ImVec4)ImColor(255, 0, 0);
+    ImVec4 sum_line_color = (ImVec4)ImColor(0, 255, 0);
 
     this->_set_OpenGL_coordinate_mode();
 
@@ -112,6 +114,7 @@ void SDLImguiApplication::run()
     bool sum_of_vectors_open = false;
 
     vector<DrawableLinalVector> vectors;
+    vector<DrawableLinalVector> sum_vectors;
 
     while (this->_running) {
         SDL_Event event;
@@ -177,6 +180,11 @@ void SDLImguiApplication::run()
             ImGui::Begin("Sum of vectors", &sum_of_vectors_open);
             ImGui::ListBox("From", &from, names_c_str.data(), (int)names.size());
             ImGui::ListBox("To", &to, names_c_str.data(), (int)names.size());
+
+            if (ImGui::Button("Add sum")) {
+                sum_vectors.push_back(vectors[from] + vectors[to]);
+            }
+
             ImGui::End();
         }
 
@@ -187,7 +195,11 @@ void SDLImguiApplication::run()
 
         // Draw vectors
         for (auto& v : vectors) {
-            v.draw();
+            v.draw(normal_line_color);
+        }
+
+        for (auto& brommer : sum_vectors) {
+            brommer.draw(sum_line_color);
         }
 
         // Let ImGui render
