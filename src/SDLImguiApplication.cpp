@@ -17,6 +17,7 @@ SDLImguiApplication::SDLImguiApplication()
 , _screen_height(480)
 , _running(true)
 , _main_menu(*this)
+, _add_vector_window(*this)
 {
     if (!this->_init_SDL()) {
         cout << "Could not init SDL" << endl;
@@ -164,24 +165,7 @@ void SDLImguiApplication::_GUI_logic()
     ImGui_ImplSdl_NewFrame(this->_window);
 
     this->_main_menu.GUI_logic();
-
-    // encaps [
-    if (this->_main_menu.add_vector_open) {
-        static int vector_dir_x = 0;
-        static int vector_dir_y = 0;
-
-        ImGui::Begin("Add vector screen", &this->_main_menu.add_vector_open);
-        ImGui::Text("Vector params");
-        ImGui::InputInt("x", &vector_dir_x, 10);
-        ImGui::InputInt("y", &vector_dir_y, 10);
-
-        if (ImGui::Button("Add")) {
-            this->_vectors.push_back(DrawableLinalVector(vector_dir_x, vector_dir_y));
-        }
-
-        ImGui::End();
-    }
-    // ]
+    this->_add_vector_window.GUI_logic();
 
     // encaps [
     if (this->_main_menu.add_vector_sum_open) {

@@ -11,6 +11,7 @@ set(SOURCE_FILES
         src/linal/LinalVector.cpp src/linal/LinalVector.hpp
         src/SDLImguiApplication.cpp src/SDLImguiApplication.hpp
         src/linal/DrawableLinalVector.cpp src/linal/DrawableLinalVector.hpp
-        src/GUI/MainMenuBar.cpp src/GUI/MainMenuBar.hpp)
+        src/GUI/MainMenuBar.cpp src/GUI/MainMenuBar.hpp
+        src/GUI/AddVectorWindow.cpp src/GUI/AddVectorWindow.hpp)
 
 add_executable(LinearAlgebra ${SOURCE_FILES})
