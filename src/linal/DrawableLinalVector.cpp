@@ -21,6 +21,6 @@ void DrawableLinalVector::draw(ImVec4 color)
     glBegin(GL_LINES);
     glColor3d(color.x, color.y, color.z);
     glVertex2i(0, 0);
-    glVertex2i(this->dir_x, this->dir_y*-1);
+    glVertex2i(this->dir_x, this->dir_y);
     glEnd();
 }

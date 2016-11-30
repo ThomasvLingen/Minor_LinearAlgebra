@@ -216,7 +216,7 @@ void SDLImguiApplication::_set_OpenGL_coordinate_mode()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(-this->_screen_width/2, this->_screen_width/2,
-            this->_screen_height/2, -this->_screen_height/2,
+            -this->_screen_height/2, this->_screen_height/2,
             -1, 1);
     glMatrixMode(GL_MODELVIEW);
 }
