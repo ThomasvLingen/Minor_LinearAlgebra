@@ -9,6 +9,7 @@ set(SOURCE_FILES
         src/main.cpp
         src/imgui_impl_sdl.cpp src/imgui_impl_sdl.h
         src/linal/LinalVector.cpp src/linal/LinalVector.hpp
-        src/SDLImguiApplication.cpp src/SDLImguiApplication.hpp)
+        src/SDLImguiApplication.cpp src/SDLImguiApplication.hpp
+        src/linal/DrawableLinalVector.cpp src/linal/DrawableLinalVector.hpp)
 
 add_executable(LinearAlgebra ${SOURCE_FILES})

@@ -6,9 +6,13 @@
 #include "SDLImguiApplication.hpp"
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
+#include "linal/DrawableLinalVector.hpp"
+
+#include <vector>
 
 using std::cout;
 using std::endl;
+using std::vector;
 
 SDLImguiApplication::SDLImguiApplication()
 : _window(nullptr)
@@ -99,9 +103,11 @@ bool SDLImguiApplication::_init_imgui()
 void SDLImguiApplication::run()
 {
     ImVec4 clear_color = (ImVec4)ImColor(114, 144, 154);
-    ImVec4 line_color = (ImVec4)ImColor(255, 0, 0);
 
     this->_set_OpenGL_coordinate_mode();
+
+    bool add_vector_open = false;
+    vector<DrawableLinalVector> vectors;
 
     while (this->_running) {
         SDL_Event event;
@@ -114,6 +120,35 @@ void SDLImguiApplication::run()
 
         // Imgui stuff
         ImGui_ImplSdl_NewFrame(this->_window);
+
+        if (ImGui::BeginMainMenuBar()) {
+            if (ImGui::BeginMenu("File")) {
+                if (ImGui::MenuItem("Add vector")) {
+                    add_vector_open = true;
+                }
+
+                ImGui::EndMenu();
+            }
+
+            ImGui::EndMainMenuBar();
+        }
+
+        if (add_vector_open) {
+            static int vector_dir_x = 0;
+            static int vector_dir_y = 0;
+
+            ImGui::Begin("Add vector screen", &add_vector_open);
+            ImGui::Text("Vector params");
+            ImGui::InputInt("x", &vector_dir_x);
+            ImGui::InputInt("y", &vector_dir_y);
+
+            if (ImGui::Button("Add")) {
+                vectors.push_back(DrawableLinalVector(vector_dir_x, vector_dir_y));
+            }
+
+            ImGui::End();
+        }
+
         ImGui::Begin("DE SCHERM");
         ImGui::Text("HALLO IMGUI");
         ImGui::End();
@@ -123,12 +158,10 @@ void SDLImguiApplication::run()
         glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // Draw a line
-        glBegin(GL_LINES);
-        glColor3d(line_color.x, line_color.y, line_color.z);
-        glVertex2i(0, 0);
-        glVertex2i(320, 240);
-        glEnd();
+        // Draw vectors
+        for (auto& v : vectors) {
+            v.draw();
+        }
 
         // Let ImGui render
         ImGui::Render();
