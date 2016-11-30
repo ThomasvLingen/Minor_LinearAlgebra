@@ -16,6 +16,7 @@ SDLImguiApplication::SDLImguiApplication()
 , _screen_width(640)
 , _screen_height(480)
 , _running(true)
+, _main_menu(*this)
 {
     if (!this->_init_SDL()) {
         cout << "Could not init SDL" << endl;
@@ -150,40 +151,26 @@ void SDLImguiApplication::_handle_SDL_events()
     }
 }
 
+void SDLImguiApplication::_clear_screen()
+{
+    glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
+    glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
 void SDLImguiApplication::_GUI_logic()
 {
-    static bool add_vector_open = false;
-    static bool sum_of_vectors_open = false;
-
     // Imgui stuff
     ImGui_ImplSdl_NewFrame(this->_window);
 
-    // encaps [
-    if (ImGui::BeginMainMenuBar()) {
-        if (ImGui::BeginMenu("File")) {
-            if (ImGui::MenuItem("Add vector")) {
-                add_vector_open = true;
-            }
-            if (ImGui::MenuItem("Sum of vectors")) {
-                // We only want this to open if there are actually vectors to take a sum of
-                if (this->_vectors.size() > 0) {
-                    sum_of_vectors_open = true;
-                }
-            }
-
-            ImGui::EndMenu();
-        }
-
-        ImGui::EndMainMenuBar();
-    }
-    // ]
+    this->_main_menu.GUI_logic();
 
     // encaps [
-    if (add_vector_open) {
+    if (this->_main_menu.add_vector_open) {
         static int vector_dir_x = 0;
         static int vector_dir_y = 0;
 
-        ImGui::Begin("Add vector screen", &add_vector_open);
+        ImGui::Begin("Add vector screen", &this->_main_menu.add_vector_open);
         ImGui::Text("Vector params");
         ImGui::InputInt("x", &vector_dir_x, 10);
         ImGui::InputInt("y", &vector_dir_y, 10);
@@ -197,7 +184,7 @@ void SDLImguiApplication::_GUI_logic()
     // ]
 
     // encaps [
-    if (sum_of_vectors_open) {
+    if (this->_main_menu.add_vector_sum_open) {
         // build vector list
         // TODO: This is ugly and stupid
         vector<string> names;
@@ -212,7 +199,7 @@ void SDLImguiApplication::_GUI_logic()
         static int from = 0;
         static int to = 0;
 
-        ImGui::Begin("Sum of vectors", &sum_of_vectors_open);
+        ImGui::Begin("Sum of vectors", &this->_main_menu.add_vector_sum_open);
         ImGui::ListBox("From", &from, names_c_str.data(), (int)names.size());
         ImGui::ListBox("To", &to, names_c_str.data(), (int)names.size());
 
@@ -223,11 +210,4 @@ void SDLImguiApplication::_GUI_logic()
         ImGui::End();
     }
     // ]
-}
-
-void SDLImguiApplication::_clear_screen()
-{
-    glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
-    glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-    glClear(GL_COLOR_BUFFER_BIT);
 }

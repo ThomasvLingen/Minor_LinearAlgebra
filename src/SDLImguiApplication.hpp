@@ -12,8 +12,11 @@
 #include "imgui.h"
 
 #include "linal/DrawableLinalVector.hpp"
+#include "GUI/MainMenuBar.hpp"
 
 class SDLImguiApplication {
+friend class MainMenuBar;
+
 public:
     SDLImguiApplication();
 
@@ -27,6 +30,7 @@ private:
 
     bool _running;
 
+    MainMenuBar _main_menu;
     std::vector<DrawableLinalVector> _vectors;
     std::vector<DrawableLinalVector> _sum_vectors;
 
