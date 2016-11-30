@@ -8,6 +8,10 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <vector>
+#include "imgui.h"
+
+#include "linal/DrawableLinalVector.hpp"
 
 class SDLImguiApplication {
 public:
@@ -22,6 +26,12 @@ private:
     const int _screen_height;
 
     bool _running;
+
+    std::vector<DrawableLinalVector> _vectors;
+    std::vector<DrawableLinalVector> _sum_vectors;
+
+    void _handle_SDL_events();
+    void _do_gui();
 
     void _set_OpenGL_coordinate_mode();
     bool _init_SDL();
