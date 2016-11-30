@@ -42,6 +42,13 @@ int main()
 
     // Background colour
     ImVec4 clear_color = (ImVec4)ImColor(114, 144, 154);
+    ImVec4 line_color = (ImVec4)ImColor(255, 0, 0);
+
+    // Setup OpenGL for coordinate system drawing
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, screen_width, screen_height, 0, -1, 1);
+    glMatrixMode(GL_MODELVIEW);
 
     bool running = true;
     while (running) {
@@ -64,8 +71,13 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui::Render();
 
-        // SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        // SDL_RenderDrawLine(renderer, 0,0,500,500);
+        // Draw a line
+        glBegin(GL_LINES);
+        glColor3d(line_color.x, line_color.y, line_color.z);
+        glVertex2i(0, 0);
+        glVertex2i(320, 240);
+        glEnd();
+
         SDL_GL_SwapWindow(window);
     }
 
