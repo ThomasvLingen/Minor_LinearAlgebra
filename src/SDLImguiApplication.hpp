@@ -32,6 +32,8 @@ private:
 
     void _handle_SDL_events();
     void _GUI_logic();
+    ImVec4 clear_color = (ImVec4)ImColor(255, 255, 255);
+    void _clear_screen();
 
     void _set_OpenGL_coordinate_mode();
     bool _init_SDL();

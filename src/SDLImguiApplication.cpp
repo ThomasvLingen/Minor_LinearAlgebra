@@ -99,7 +99,6 @@ bool SDLImguiApplication::_init_imgui()
 
 void SDLImguiApplication::run()
 {
-    ImVec4 clear_color = (ImVec4)ImColor(255, 255, 255);
     ImVec4 normal_line_color = (ImVec4)ImColor(255, 0, 0);
     ImVec4 sum_line_color = (ImVec4)ImColor(0, 255, 0);
 
@@ -110,10 +109,7 @@ void SDLImguiApplication::run()
 
         this->_GUI_logic();
 
-        // Clear screen
-        glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
-        glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-        glClear(GL_COLOR_BUFFER_BIT);
+        this->_clear_screen();
 
         // Draw vectors
         for (auto& v : this->_vectors) {
@@ -227,4 +223,11 @@ void SDLImguiApplication::_GUI_logic()
         ImGui::End();
     }
     // ]
+}
+
+void SDLImguiApplication::_clear_screen()
+{
+    glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
+    glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
