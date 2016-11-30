@@ -8,8 +8,19 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <vector>
+#include "imgui.h"
+
+#include "linal/DrawableLinalVector.hpp"
+#include "GUI/MainMenuBar.hpp"
+#include "GUI/AddVectorWindow.hpp"
+#include "GUI/AddVectorSumWindow.hpp"
 
 class SDLImguiApplication {
+friend class MainMenuBar;
+friend class AddVectorWindow;
+friend class AddVectorSumWindow;
+
 public:
     SDLImguiApplication();
 
@@ -22,6 +33,19 @@ private:
     const int _screen_height;
 
     bool _running;
+
+    // GUI elements
+    MainMenuBar _main_menu;
+    AddVectorWindow _add_vector_window;
+    AddVectorSumWindow _add_vector_sum_window;
+
+    std::vector<DrawableLinalVector> _vectors;
+    std::vector<DrawableLinalVector> _sum_vectors;
+
+    void _handle_SDL_events();
+    void _GUI_logic();
+    ImVec4 clear_color = (ImVec4)ImColor(255, 255, 255);
+    void _clear_screen();
 
     void _set_OpenGL_coordinate_mode();
     bool _init_SDL();

@@ -4,12 +4,7 @@
 
 #include <SDL2/SDL_opengl.h>
 #include "SDLImguiApplication.hpp"
-#include "imgui.h"
 #include "imgui_impl_sdl.h"
-#include "linal/DrawableLinalVector.hpp"
-
-#include <vector>
-#include <string>
 
 using std::cout;
 using std::endl;
@@ -21,6 +16,9 @@ SDLImguiApplication::SDLImguiApplication()
 , _screen_width(640)
 , _screen_height(480)
 , _running(true)
+, _main_menu(*this)
+, _add_vector_window(*this)
+, _add_vector_sum_window(*this)
 {
     if (!this->_init_SDL()) {
         cout << "Could not init SDL" << endl;
@@ -104,101 +102,24 @@ bool SDLImguiApplication::_init_imgui()
 
 void SDLImguiApplication::run()
 {
-    ImVec4 clear_color = (ImVec4)ImColor(255, 255, 255);
     ImVec4 normal_line_color = (ImVec4)ImColor(255, 0, 0);
     ImVec4 sum_line_color = (ImVec4)ImColor(0, 255, 0);
 
     this->_set_OpenGL_coordinate_mode();
 
-    bool add_vector_open = false;
-    bool sum_of_vectors_open = false;
-
-    vector<DrawableLinalVector> vectors;
-    vector<DrawableLinalVector> sum_vectors;
-
     while (this->_running) {
-        SDL_Event event;
-        while (SDL_PollEvent(&event)) {
-            ImGui_ImplSdl_ProcessEvent(&event);
-            if (event.type == SDL_QUIT) {
-                this->_running = false;
-            }
-        }
+        this->_handle_SDL_events();
 
-        // Imgui stuff
-        ImGui_ImplSdl_NewFrame(this->_window);
+        this->_GUI_logic();
 
-        if (ImGui::BeginMainMenuBar()) {
-            if (ImGui::BeginMenu("File")) {
-                if (ImGui::MenuItem("Add vector")) {
-                    add_vector_open = true;
-                }
-                if (ImGui::MenuItem("Sum of vectors")) {
-                    // We only want this to open if there are actually vectors to take a sum of
-                    if (vectors.size() > 0) {
-                        sum_of_vectors_open = true;
-                    }
-                }
-
-                ImGui::EndMenu();
-            }
-
-            ImGui::EndMainMenuBar();
-        }
-
-        if (add_vector_open) {
-            static int vector_dir_x = 0;
-            static int vector_dir_y = 0;
-
-            ImGui::Begin("Add vector screen", &add_vector_open);
-            ImGui::Text("Vector params");
-            ImGui::InputInt("x", &vector_dir_x, 10);
-            ImGui::InputInt("y", &vector_dir_y, 10);
-
-            if (ImGui::Button("Add")) {
-                vectors.push_back(DrawableLinalVector(vector_dir_x, vector_dir_y));
-            }
-
-            ImGui::End();
-        }
-
-        if (sum_of_vectors_open) {
-            // build vector list
-            // TODO: This is ugly and stupid
-            vector<string> names;
-            for (int i = 0; i < vectors.size(); i++) {
-                names.push_back(std::to_string(i));
-            }
-            vector<const char*> names_c_str;
-            for (size_t i = 0; i < names.size(); ++i) {
-                names_c_str.push_back(names[i].c_str());
-            }
-
-            static int from = 0;
-            static int to = 0;
-
-            ImGui::Begin("Sum of vectors", &sum_of_vectors_open);
-            ImGui::ListBox("From", &from, names_c_str.data(), (int)names.size());
-            ImGui::ListBox("To", &to, names_c_str.data(), (int)names.size());
-
-            if (ImGui::Button("Add sum")) {
-                sum_vectors.push_back(vectors[from] + vectors[to]);
-            }
-
-            ImGui::End();
-        }
-
-        // Clear screen
-        glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
-        glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-        glClear(GL_COLOR_BUFFER_BIT);
+        this->_clear_screen();
 
         // Draw vectors
-        for (auto& v : vectors) {
+        for (auto& v : this->_vectors) {
             v.draw(normal_line_color);
         }
 
-        for (auto& brommer : sum_vectors) {
+        for (auto& brommer : this->_sum_vectors) {
             brommer.draw(sum_line_color);
         }
 
@@ -219,4 +140,32 @@ void SDLImguiApplication::_set_OpenGL_coordinate_mode()
             -this->_screen_height/2, this->_screen_height/2,
             -1, 1);
     glMatrixMode(GL_MODELVIEW);
+}
+
+void SDLImguiApplication::_handle_SDL_events()
+{
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        ImGui_ImplSdl_ProcessEvent(&event);
+        if (event.type == SDL_QUIT) {
+            this->_running = false;
+        }
+    }
+}
+
+void SDLImguiApplication::_clear_screen()
+{
+    glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
+    glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void SDLImguiApplication::_GUI_logic()
+{
+    // Imgui stuff
+    ImGui_ImplSdl_NewFrame(this->_window);
+
+    this->_main_menu.GUI_logic();
+    this->_add_vector_window.GUI_logic();
+    this->_add_vector_sum_window.GUI_logic();
 }
