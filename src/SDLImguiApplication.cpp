@@ -78,7 +78,7 @@ bool SDLImguiApplication::_init_OpenGL()
 bool SDLImguiApplication::_init_SDL_window()
 {
     SDL_Window* window = SDL_CreateWindow(
-        "Linear Algebra (Jorg&Thomas)",
+        "Linear Algebra (Jorg & Thomas)",
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         this->_screen_width, this->_screen_height,
         SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN
@@ -102,7 +102,7 @@ bool SDLImguiApplication::_init_imgui()
 
 void SDLImguiApplication::run()
 {
-    ImVec4 clear_color = (ImVec4)ImColor(114, 144, 154);
+    ImVec4 clear_color = (ImVec4)ImColor(255, 255, 255);
 
     this->_set_OpenGL_coordinate_mode();
 
@@ -139,8 +139,8 @@ void SDLImguiApplication::run()
 
             ImGui::Begin("Add vector screen", &add_vector_open);
             ImGui::Text("Vector params");
-            ImGui::InputInt("x", &vector_dir_x);
-            ImGui::InputInt("y", &vector_dir_y);
+            ImGui::InputInt("x", &vector_dir_x, 10);
+            ImGui::InputInt("y", &vector_dir_y, 10);
 
             if (ImGui::Button("Add")) {
                 vectors.push_back(DrawableLinalVector(vector_dir_x, vector_dir_y));
@@ -148,10 +148,6 @@ void SDLImguiApplication::run()
 
             ImGui::End();
         }
-
-        ImGui::Begin("DE SCHERM");
-        ImGui::Text("HALLO IMGUI");
-        ImGui::End();
 
         // Clear screen
         glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
@@ -176,6 +172,8 @@ void SDLImguiApplication::_set_OpenGL_coordinate_mode()
     // Setup OpenGL for coordinate system drawing
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, this->_screen_width, this->_screen_height, 0, -1, 1);
+    glOrtho(-this->_screen_width/2, this->_screen_width/2,
+            this->_screen_height/2, -this->_screen_height/2,
+            -1, 1);
     glMatrixMode(GL_MODELVIEW);
 }
