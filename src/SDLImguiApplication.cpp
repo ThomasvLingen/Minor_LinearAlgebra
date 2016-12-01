@@ -181,9 +181,9 @@ void SDLImguiApplication::run()
             ImGui::ListBox("From", &from, names_c_str.data(), (int)names.size());
             ImGui::ListBox("To", &to, names_c_str.data(), (int)names.size());
 
-            if (ImGui::Button("Add sum")) {
-                sum_vectors.push_back(vectors[from] + vectors[to]);
-            }
+//            if (ImGui::Button("Add sum")) {
+//                sum_vectors.push_back(vectors[from] + vectors[to]);
+//            }
 
             ImGui::End();
         }

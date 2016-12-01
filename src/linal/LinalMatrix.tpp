@@ -55,10 +55,13 @@ LinalMatrix<T> LinalMatrix<T>::operator*(const LinalMatrix<T>& other)
 template <class T>
 void LinalMatrix<T>::print()
 {
+    std::cout << "----" << std::endl;
     for(auto& row : this->values){
+        std::cout << "[ ";
         for(auto val : row){
             std::cout << val << " ";
         }
-        std::cout << std::endl;
+        std::cout << "]" << std::endl;
     }
+    std::cout << "----" << std::endl;
 }
