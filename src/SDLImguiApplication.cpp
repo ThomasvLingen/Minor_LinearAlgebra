@@ -5,6 +5,7 @@
 #include <SDL2/SDL_opengl.h>
 #include "SDLImguiApplication.hpp"
 #include "imgui_impl_sdl.h"
+#include <GL/glu.h>
 
 using std::cout;
 using std::endl;
@@ -128,6 +129,46 @@ void SDLImguiApplication::run()
             v.draw(selected_line_color);
         }
 
+        /* test 3d object */
+        glMatrixMode(GL_MODELVIEW);
+        glBegin(GL_QUADS);        // Draw The Cube Using quads
+        glLoadIdentity();
+        glColor3f(0.0f,1.0f,0.0f);    // Color Blue
+        glVertex3f( 0.5f, 0.5f,-0.5f);    // Top Right Of The Quad (Top)
+        glVertex3f(-0.5f, 0.5f,-0.5f);    // Top Left Of The Quad (Top)
+        glVertex3f(-0.5f, 0.5f, 0.5f);    // Bottom Left Of The Quad (Top)
+        glVertex3f( 0.5f, 0.5f, 0.5f);    // Bottom Right Of The Quad (Top)
+        glColor3f(1.0f,0.5f,0.0f);    // Color Orange
+        glVertex3f( 0.5f,-0.5f, 0.5f);    // Top Right Of The Quad (Bottom)
+        glVertex3f(-0.5f,-0.5f, 0.5f);    // Top Left Of The Quad (Bottom)
+        glVertex3f(-0.5f,-0.5f,-0.5f);    // Bottom Left Of The Quad (Bottom)
+        glVertex3f( 0.5f,-0.5f,-0.5f);    // Bottom Right Of The Quad (Bottom)
+        glColor3f(1.0f,0.0f,0.0f);    // Color Red
+        glVertex3f( 0.5f, 0.5f, 0.5f);    // Top Right Of The Quad (Front)
+        glVertex3f(-0.5f, 0.5f, 0.5f);    // Top Left Of The Quad (Front)
+        glVertex3f(-0.5f,-0.5f, 0.5f);    // Bottom Left Of The Quad (Front)
+        glVertex3f( 0.5f,-0.5f, 0.5f);    // Bottom Right Of The Quad (Front)
+        glColor3f(1.0f,1.0f,0.0f);    // Color Yellow
+        glVertex3f( 0.5f,-0.5f,-0.5f);    // Top Right Of The Quad (Back)
+        glVertex3f(-0.5f,-0.5f,-0.5f);    // Top Left Of The Quad (Back)
+        glVertex3f(-0.5f, 0.5f,-0.5f);    // Bottom Left Of The Quad (Back)
+        glVertex3f( 0.5f, 0.5f,-0.5f);    // Bottom Right Of The Quad (Back)
+        glColor3f(0.0f,0.0f,1.0f);    // Color Blue
+        glVertex3f(-0.5f, 0.5f, 0.5f);    // Top Right Of The Quad (Left)
+        glVertex3f(-0.5f, 0.5f,-0.5f);    // Top Left Of The Quad (Left)
+        glVertex3f(-0.5f,-0.5f,-0.5f);    // Bottom Left Of The Quad (Left)
+        glVertex3f(-0.5f,-0.5f, 0.5f);    // Bottom Right Of The Quad (Left)
+        glColor3f(1.0f,0.0f,1.0f);    // Color Violet
+        glVertex3f( 0.5f, 0.5f,-0.5f);    // Top Right Of The Quad (Right)
+        glVertex3f( 0.5f, 0.5f, 0.5f);    // Top Left Of The Quad (Right)
+        glVertex3f( 0.5f,-0.5f, 0.5f);    // Bottom Left Of The Quad (Right)
+        glVertex3f( 0.5f,-0.5f,-0.5f);    // Bottom Right Of The Quad (Right)
+        glEnd();            // End Drawing The Cube
+        glRotatef(1,1.0,0.0,0.0);
+        glRotatef(2,0.0,1.0,0.0);
+        glRotatef(3,0.0,0.0,1.0);
+        glFlush();
+
         // Let ImGui render
         ImGui::Render();
 
@@ -138,12 +179,19 @@ void SDLImguiApplication::run()
 
 void SDLImguiApplication::_set_OpenGL_coordinate_mode()
 {
+    // Enable depth test
+    glEnable(GL_DEPTH_TEST);
+    // Accept fragment if it closer to the camera than the former one
+    glDepthFunc(GL_LESS);
+
+
+
     // Setup OpenGL for coordinate system drawing
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-this->_screen_width/2, this->_screen_width/2,
+    /*glOrtho(-this->_screen_width/2, this->_screen_width/2,
             -this->_screen_height/2, this->_screen_height/2,
-            -1, 1);
+            -1, 1);*/
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -162,7 +210,11 @@ void SDLImguiApplication::_clear_screen()
 {
     glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
     glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-    glClear(GL_COLOR_BUFFER_BIT);
+    // glClear(GL_COLOR_BUFFER_BIT);
+    // Clear the screen
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
 }
 
 void SDLImguiApplication::_GUI_logic()
