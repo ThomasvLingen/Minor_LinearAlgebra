@@ -98,6 +98,18 @@ LinalMatrix<T> LinalMatrix<T>::rotate_matrix(Axis axis, int degrees, T x, T y, T
 }
 
 template <class T>
+LinalMatrix<T> LinalMatrix<T>::rotate_matrix(Axis axis, int degrees, LinalMatrix<T> rotation_point)
+{
+    return LinalMatrix<T>::rotate_matrix(
+        axis,
+        degrees,
+        -rotation_point.values[0][0],
+        -rotation_point.values[1][0],
+        -rotation_point.values[2][0]
+    );
+}
+
+template <class T>
 LinalMatrix<T> LinalMatrix<T>::rotate_matrix(Axis axis, int degrees)
 {
     return LinalMatrix::_get_rotation_matrix(axis, degrees);
@@ -132,4 +144,21 @@ LinalMatrix<T> LinalMatrix<T>::_get_rotation_matrix(Axis axis, int degrees)
         default:
             throw "You dun goofed, using a non valid Axis";
     }
+}
+
+template <class T>
+LinalMatrix<T> LinalMatrix<T>::average_colom()
+{
+    vector<vector<T>> average;
+
+    for (vector<T> row : this->values) {
+        T row_average = 0;
+        average.push_back(vector<T>());
+        for (T value : row) {
+            row_average += value;
+        }
+        average.back().push_back(row_average/row.size());
+    }
+
+    return average; //implicit conversion
 }
