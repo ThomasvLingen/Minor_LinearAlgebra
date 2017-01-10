@@ -48,18 +48,18 @@ private:
     LinalMatrix<double> eye = vector<vector<double>> {
         {0},
         {0},
-        {0}
+        {-1000}
     };
 
     LinalMatrix<double> center = vector<vector<double>> {
         {0},
         {0},
-        {-1}
+        {0}
     };
 
     LinalMatrix<double> up = vector<vector<double>> {
         {0},
-        {10.0},
+        {1},
         {0}
     };
 

@@ -15,7 +15,7 @@ using std::string;
 SDLImguiApplication::SDLImguiApplication()
 : _window(nullptr)
 , _screen_width(640)
-, _screen_height(480)
+, _screen_height(640)
 , _running(true)
 , _main_menu(*this)
 // , _add_vector_window(*this)
@@ -112,7 +112,7 @@ void SDLImguiApplication::run()
 
         this->_clear_screen();
 
-        LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, 0, 2);
+        LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, 0, -2);
         this->ship = translation * this->ship;
         this->ship.draw();
 
@@ -160,6 +160,9 @@ void SDLImguiApplication::_clear_screen()
 
     // Set up the camera
     glLoadIdentity();
+    glOrtho(-this->_screen_width/2, this->_screen_width/2,
+        -this->_screen_height/2, this->_screen_height/2,
+        -1000, 1000);
     gluLookAt(
         eye.values[0][0], eye.values[1][0], eye.values[2][0],
         center.values[0][0], center.values[1][0], center.values[2][0],
