@@ -103,10 +103,6 @@ bool SDLImguiApplication::_init_imgui()
 
 void SDLImguiApplication::run()
 {
-    ImVec4 normal_line_color = (ImVec4)ImColor(255, 0, 0);
-    ImVec4 sum_line_color = (ImVec4)ImColor(0, 0, 255);
-    ImVec4 selected_line_color = (ImVec4)ImColor(0, 255, 0);
-
     this->_set_OpenGL_coordinate_mode();
 
     while (this->_running) {
@@ -116,57 +112,12 @@ void SDLImguiApplication::run()
 
         this->_clear_screen();
 
-        // Draw vectors
-        for (auto& v : this->_vectors) {
-            v.draw(normal_line_color);
-        }
+        this->ship.draw();
 
-        for (auto& brommer : this->_sum_vectors) {
-            brommer.draw(sum_line_color);
-        }
-
-        for (auto& v : this->_selected_vectors) {
-            v.draw(selected_line_color);
-        }
-
-        /* test 3d object */
-        glMatrixMode(GL_MODELVIEW);
-        glBegin(GL_QUADS);        // Draw The Cube Using quads
-        glLoadIdentity();
-        glColor3f(0.0f,1.0f,0.0f);    // Color Blue
-        glVertex3i( 50, 50,-50);    // Top Right Of The Quad (Top)
-        glVertex3i(-50, 50,-50);    // Top Left Of The Quad (Top)
-        glVertex3i(-50, 50, 50);    // Bottom Left Of The Quad (Top)
-        glVertex3i( 50, 50, 50);    // Bottom Right Of The Quad (Top)
-        glColor3f(1.0f,0.5f,0.0f);    // Color Orange
-        glVertex3i( 50,-50, 50);    // Top Right Of The Quad (Bottom)
-        glVertex3i(-50,-50, 50);    // Top Left Of The Quad (Bottom)
-        glVertex3i(-50,-50,-50);    // Bottom Left Of The Quad (Bottom)
-        glVertex3i( 50,-50,-50);    // Bottom Right Of The Quad (Bottom)
-        glColor3f(1.0f,0.0f,0.0f);    // Color Red
-        glVertex3i( 50, 50, 50);    // Top Right Of The Quad (Front)
-        glVertex3i(-50, 50, 50);    // Top Left Of The Quad (Front)
-        glVertex3i(-50,-50, 50);    // Bottom Left Of The Quad (Front)
-        glVertex3i( 50,-50, 50);    // Bottom Right Of The Quad (Front)
-        glColor3f(1.0f,1.0f,0.0f);    // Color Yellow
-        glVertex3i( 50,-50,-50);    // Top Right Of The Quad (Back)
-        glVertex3i(-50,-50,-50);    // Top Left Of The Quad (Back)
-        glVertex3i(-50, 50,-50);    // Bottom Left Of The Quad (Back)
-        glVertex3i( 50, 50,-50);    // Bottom Right Of The Quad (Back)
-        glColor3f(0.0f,0.0f,1.0f);    // Color Blue
-        glVertex3i(-50, 50, 50);    // Top Right Of The Quad (Left)
-        glVertex3i(-50, 50,-50);    // Top Left Of The Quad (Left)
-        glVertex3i(-50,-50,-50);    // Bottom Left Of The Quad (Left)
-        glVertex3i(-50,-50, 50);    // Bottom Right Of The Quad (Left)
-        glColor3f(1.0f,0.0f,1.0f);    // Color Violet
-        glVertex3i( 50, 50,-50);    // Top Right Of The Quad (Right)
-        glVertex3i( 50, 50, 50);    // Top Left Of The Quad (Right)
-        glVertex3i( 50,-50, 50);    // Bottom Left Of The Quad (Right)
-        glVertex3i( 50,-50,-50);    // Bottom Right Of The Quad (Right)
-        glEnd();            // End Drawing The Cube
-        glRotatef(1,1.0,0.0,0.0);
-        glRotatef(2,0.0,1.0,0.0);
-        glRotatef(3,0.0,0.0,1.0);
+        // TODO: Test rotation, this isn't allowed and only exists so we can properly see the ship model
+        glRotatef(0.2,1.0,0.0,0.0);
+        glRotatef(0.3,0.0,1.0,0.0);
+        glRotatef(0.4,0.0,0.0,1.0);
         glFlush();
 
         // Let ImGui render
@@ -191,7 +142,7 @@ void SDLImguiApplication::_set_OpenGL_coordinate_mode()
     glLoadIdentity();
     glOrtho(-this->_screen_width/2, this->_screen_width/2,
             -this->_screen_height/2, this->_screen_height/2,
-            -100, 100);
+            -1000, 1000);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -221,6 +172,4 @@ void SDLImguiApplication::_GUI_logic()
     ImGui_ImplSdl_NewFrame(this->_window);
 
     this->_main_menu.GUI_logic();
-    // this->_add_vector_window.GUI_logic();
-    // this->_add_vector_sum_window.GUI_logic();
 }

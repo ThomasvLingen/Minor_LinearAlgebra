@@ -13,8 +13,8 @@
 
 #include "linal/DrawableLinalVector.hpp"
 #include "GUI/MainMenuBar.hpp"
-#include "GUI/AddVectorWindow.hpp"
-#include "GUI/AddVectorSumWindow.hpp"
+#include "linal/LinalModel.hpp"
+#include "models/Ship.hpp"
 
 class SDLImguiApplication {
 friend class MainMenuBar;
@@ -34,14 +34,12 @@ private:
 
     bool _running;
 
+    // Test model thing
+    Ship ship;
+
     // GUI elements
     MainMenuBar _main_menu;
-    // AddVectorWindow _add_vector_window;
-    // AddVectorSumWindow _add_vector_sum_window;
 
-    std::vector<DrawableLinalVector> _vectors;
-    std::vector<DrawableLinalVector> _sum_vectors;
-    std::vector<DrawableLinalVector> _selected_vectors;
 
     void _handle_SDL_events();
     void _GUI_logic();
