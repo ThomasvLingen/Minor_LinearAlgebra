@@ -18,7 +18,7 @@ void MainMenuBar::GUI_logic()
 {
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
-            if (ImGui::MenuItem("Add vector")) {
+            /*if (ImGui::MenuItem("Add vector")) {
                 add_vector_open = true;
             }
             if (ImGui::MenuItem("Sum of vectors")) {
@@ -26,7 +26,7 @@ void MainMenuBar::GUI_logic()
                 if (this->_context._vectors.size() > 0) {
                     this->add_vector_sum_open = true;
                 }
-            }
+            }*/
             if (ImGui::MenuItem("Quit")) {
                 this->_context._running = false;
             }

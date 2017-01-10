@@ -35,9 +35,9 @@ void AddVectorSumWindow::GUI_logic()
         ImGui::ListBox("From", &from, names_c_str.data(), (int)names.size());
         ImGui::ListBox("To", &to, names_c_str.data(), (int)names.size());
 
-        if (ImGui::Button("Add sum")) {
-            this->_context._sum_vectors.push_back(this->_context._vectors[from] + this->_context._vectors[to]);
-        }
+//        if (ImGui::Button("Add sum")) {
+//            this->_context._sum_vectors.push_back(this->_context._vectors[from] + this->_context._vectors[to]);
+//        }
 
         this->_context._selected_vectors.clear();
         this->_context._selected_vectors.push_back(this->_context._vectors[from]);

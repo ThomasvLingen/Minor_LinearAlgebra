@@ -36,8 +36,8 @@ private:
 
     // GUI elements
     MainMenuBar _main_menu;
-    AddVectorWindow _add_vector_window;
-    AddVectorSumWindow _add_vector_sum_window;
+    // AddVectorWindow _add_vector_window;
+    // AddVectorSumWindow _add_vector_sum_window;
 
     std::vector<DrawableLinalVector> _vectors;
     std::vector<DrawableLinalVector> _sum_vectors;

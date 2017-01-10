@@ -18,8 +18,8 @@ SDLImguiApplication::SDLImguiApplication()
 , _screen_height(480)
 , _running(true)
 , _main_menu(*this)
-, _add_vector_window(*this)
-, _add_vector_sum_window(*this)
+// , _add_vector_window(*this)
+// , _add_vector_sum_window(*this)
 {
     if (!this->_init_SDL()) {
         cout << "Could not init SDL" << endl;
@@ -221,6 +221,6 @@ void SDLImguiApplication::_GUI_logic()
     ImGui_ImplSdl_NewFrame(this->_window);
 
     this->_main_menu.GUI_logic();
-    this->_add_vector_window.GUI_logic();
-    this->_add_vector_sum_window.GUI_logic();
+    // this->_add_vector_window.GUI_logic();
+    // this->_add_vector_sum_window.GUI_logic();
 }
