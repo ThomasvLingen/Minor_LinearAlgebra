@@ -21,6 +21,7 @@ void DrawableLinalVector::draw(ImVec4 color)
     glBegin(GL_LINES);
     glColor3d(color.x, color.y, color.z);
     glVertex2i(0, 0);
-    glVertex2i(this->dir_x, this->dir_y);
+    glVertex2i(this->values[0][0], this->values[1][0]);
+    //if segfaults here, check that a empty matrix isnt converted to a linalvector to a drawable linal vector
     glEnd();
 }

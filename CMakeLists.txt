@@ -5,14 +5,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 include_directories(libs/imgui)
 
-set(SOURCE_FILES
-        src/main.cpp
-        src/imgui_impl_sdl.cpp src/imgui_impl_sdl.h
-        src/linal/LinalVector.cpp src/linal/LinalVector.hpp
-        src/SDLImguiApplication.cpp src/SDLImguiApplication.hpp
-        src/linal/DrawableLinalVector.cpp src/linal/DrawableLinalVector.hpp
-        src/GUI/MainMenuBar.cpp src/GUI/MainMenuBar.hpp
-        src/GUI/AddVectorWindow.cpp src/GUI/AddVectorWindow.hpp
-        src/GUI/AddVectorSumWindow.cpp src/GUI/AddVectorSumWindow.hpp)
+file(GLOB_RECURSE SOURCE_FILES
+        "src/*.hpp"
+        "src/*.cpp"
+        "src/*.h"
+        "src/*.tpp"
+        )
 
 add_executable(LinearAlgebra ${SOURCE_FILES})

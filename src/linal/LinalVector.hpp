@@ -5,19 +5,17 @@
 #ifndef LINEARALGEBRA_LINALVECTOR_HPP
 #define LINEARALGEBRA_LINALVECTOR_HPP
 
+#include "LinalMatrix.hpp"
 
-class LinalVector {
+class LinalVector : public LinalMatrix<int> {
 public:
     LinalVector(int x, int y);
+    LinalVector(LinalMatrix obj);
 
-    int dir_x;
-    int dir_y;
+//    void multiply_by_factor(int factor);
 
-    void multiply_by_factor(int factor);
-    void print();
-
-    LinalVector operator+(const LinalVector other);
-    LinalVector operator*(const LinalVector other);
+//    LinalVector operator+(const LinalVector other);
+//    LinalVector operator*(const LinalVector other);
 };
 
 
