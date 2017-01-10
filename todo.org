@@ -1,0 +1,15 @@
+* WAT TE DOEN
+** DONE Warnings unsigned crap
+   Thomas
+** DONE Perspective
+   Thomas
+** DONE Matrix rotation
+   Jorg
+** TODO Matrix scaling
+   Thomas
+** TODO Vector inproduct
+** TODO Vector uitproduct
+** TODO Make sure that Matrixes are used efficiently (no double dot products)
+** TODO Make ship controllable [translation]
+** TODO Make ship controllable [barrel roll]
+** TODO Make ship shoot an object
