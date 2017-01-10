@@ -24,7 +24,7 @@ void LinalModel::draw()
     glLoadIdentity();
     glColor3f(1.0f, 0.0f, 0.0f);
     // We unfortunately can't range based for here
-    for (int vert_index = 0; vert_index < this->x_size; vert_index++) {
+    for (size_t vert_index = 0; vert_index < this->x_size; vert_index++) {
         glVertex3d(this->values[0][vert_index], this->values[1][vert_index], this->values[2][vert_index]);
     }
     glEnd();

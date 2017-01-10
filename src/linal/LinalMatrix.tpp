@@ -45,9 +45,9 @@ LinalMatrix<T> LinalMatrix<T>::operator*(const LinalMatrix<T>& other)
 
     LinalMatrix<T> new_matrix(this->y_size, other.x_size);
 
-    for (int y = 0; y < new_matrix.y_size; y++) { //just end my life already
-        for (int x = 0; x < new_matrix.x_size; x++) {
-            for (int multi = 0; multi < new_matrix.y_size; multi++) {
+    for (size_t y = 0; y < new_matrix.y_size; y++) { //just end my life already
+        for (size_t x = 0; x < new_matrix.x_size; x++) {
+            for (size_t multi = 0; multi < new_matrix.y_size; multi++) {
                 new_matrix.values[y][x] += this->values[y][multi] * other.values[multi][x];
             }
         }
