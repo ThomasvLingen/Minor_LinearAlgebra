@@ -3,13 +3,16 @@
    Thomas
 ** DONE Perspective
    Thomas
-** DONE Matrix rotation
+** TODO Matrix rotation
    Jorg
+   Morgen sander vragen of hij zijn oorsprong opslaat voor de aanroep aan rotatie matrix crap
 ** TODO Matrix scaling
    Thomas
 ** TODO Vector inproduct
 ** TODO Vector uitproduct
 ** TODO Make sure that Matrixes are used efficiently (no double dot products)
 ** TODO Make ship controllable [translation]
+   Thomas
 ** TODO Make ship controllable [barrel roll]
+   Thomas
 ** TODO Make ship shoot an object
