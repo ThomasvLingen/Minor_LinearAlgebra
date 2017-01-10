@@ -104,6 +104,7 @@ bool SDLImguiApplication::_init_imgui()
 void SDLImguiApplication::run()
 {
     this->_set_OpenGL_coordinate_mode();
+    this->ship = LinalMatrix<double>::translation_matrix(50, 0, 0) * this->ship;
 
     while (this->_running) {
         this->_handle_SDL_events();
@@ -112,8 +113,9 @@ void SDLImguiApplication::run()
 
         this->_clear_screen();
 
-        LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, 0, -2);
-        this->ship = translation * this->ship;
+        LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, 0, 2);
+        LinalMatrix<double> rotation = LinalMatrix<double>::rotate_matrix(Axis::z, 1, -50, 0, 0);
+        this->ship = translation * rotation * this->ship;
         this->ship.draw();
 
         glFlush();

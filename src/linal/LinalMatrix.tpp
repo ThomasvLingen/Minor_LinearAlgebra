@@ -4,6 +4,9 @@
 
 #include <iostream>
 #include "LinalMatrix.hpp"
+#include "../DegreeUtil.hpp"
+#include <cmath>
+#include "Axis.hpp"
 
 template <class T>
 LinalMatrix<T>::LinalMatrix(const vector<vector<T>>& values)
@@ -79,4 +82,54 @@ LinalMatrix<T> LinalMatrix<T>::translation_matrix(T x, T y, T z)
         {0, 0, 1, z},
         {0, 0, 0, 1}
     });
+}
+
+template <class T>
+LinalMatrix<T> LinalMatrix<T>::rotate_matrix(Axis axis, int degrees, T x, T y, T z)
+{
+    // move to origin
+    LinalMatrix origin_matrix = LinalMatrix::translation_matrix(-x, -y, -z);
+    // rotate using the rotate matrix (perhaps get the matrix from a function)
+    LinalMatrix rotation_matrix = LinalMatrix::_get_rotation_matrix(axis, degrees);
+    // move back to old position
+    LinalMatrix original_position = LinalMatrix::translation_matrix(x, y, z);
+
+    return origin_matrix * rotation_matrix * original_position;
+}
+
+template <class T>
+LinalMatrix<T> LinalMatrix<T>::rotate_matrix(Axis axis, int degrees)
+{
+    return LinalMatrix::_get_rotation_matrix(axis, degrees);
+}
+
+template <class T>
+LinalMatrix<T> LinalMatrix<T>::_get_rotation_matrix(Axis axis, int degrees)
+{
+    double rad = DegreeUtil::degree_to_radian(degrees);
+    switch (axis) {
+        case Axis::x :
+            return LinalMatrix<T> ({
+                {1, 0,        0,         0},
+                {0, cos(rad), -sin(rad), 0},
+                {0, sin(rad), cos(rad),  0},
+                {0, 0,        0,         1}
+            });
+        case Axis::y :
+            return LinalMatrix<T> ({
+                {cos(rad),  0, sin(rad), 0},
+                {0,         1, 0,        0},
+                {-sin(rad), 0, cos(rad), 0},
+                {0,         0, 0,        1}
+            });
+        case Axis::z :
+            return LinalMatrix<T> ({
+                {cos(rad), -sin(rad), 0, 0},
+                {sin(rad), cos(rad),  0, 0},
+                {0,        0,         1, 0},
+                {0,        0,         0, 1}
+            });
+        default:
+            throw "You dun goofed, using a non valid Axis";
+    }
 }

@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <cstddef>
+#include "Axis.hpp"
 
 using std::vector;
 
@@ -24,9 +25,13 @@ public:
 
     static LinalMatrix<T> translation_matrix(T x, T y, T z);
 
+    static LinalMatrix<T> rotate_matrix(Axis axis, int degrees, T x, T y, T z);
+    static LinalMatrix<T> rotate_matrix(Axis axis, int degrees);
+
     void print();
 
 private:
+    static LinalMatrix<T> _get_rotation_matrix(Axis axis, int degrees);
 };
 
 #include "LinalMatrix.tpp"
