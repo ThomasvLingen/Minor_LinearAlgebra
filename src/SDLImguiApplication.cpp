@@ -107,6 +107,7 @@ void SDLImguiApplication::run()
     this->ship = LinalMatrix<double>::translation_matrix(50, 20, 300) * this->ship;
     this->ship.average_colom().print();
 
+    double k = 0;
     while (this->_running) {
         this->_handle_SDL_events();
 
@@ -114,14 +115,21 @@ void SDLImguiApplication::run()
 
         this->_clear_screen();
 
-//        LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, 0, 2);
+        k += 0.05;
+        LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, 50*sin(k), 2);
         LinalMatrix<double> rotation = LinalMatrix<double>::rotate_matrix(
             Axis::x,
             1,
             this->ship.average_colom()
         );
 
-        this->ship = rotation * this->ship;
+        rotation = rotation * LinalMatrix<double>::rotate_matrix(
+            Axis::y,
+            1,
+            this->ship.average_colom()
+        );
+
+        this->ship = translation * rotation * this->ship;
         this->ship.draw();
 
         glFlush();
