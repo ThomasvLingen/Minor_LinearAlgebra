@@ -112,12 +112,14 @@ void SDLImguiApplication::run()
 
         this->_clear_screen();
 
+        LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, 1, 0);
+        this->ship = translation * this->ship;
         this->ship.draw();
 
         // TODO: Test rotation, this isn't allowed and only exists so we can properly see the ship model
-        glRotatef(0.2,1.0,0.0,0.0);
-        glRotatef(0.3,0.0,1.0,0.0);
-        glRotatef(0.4,0.0,0.0,1.0);
+        //glRotatef(0.2,1.0,0.0,0.0);
+        glRotatef(3,0.0,1.0,0.0);
+        //glRotatef(0.4,0.0,0.0,1.0);
         glFlush();
 
         // Let ImGui render

@@ -17,3 +17,9 @@ Ship::Ship()
 {
 
 }
+
+Ship::Ship(const LinalMatrix<double>& other)
+: LinalModel(other.values)
+{
+
+}

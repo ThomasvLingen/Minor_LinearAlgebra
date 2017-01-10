@@ -35,6 +35,10 @@ LinalMatrix<T> LinalMatrix<T>::operator*(const LinalMatrix<T>& other)
 {
     if(this->x_size != other.y_size) {
         std::cout << "Invalid matrix multiplication" << std::endl;
+        std::cout << "x: " << this->x_size << " y: " << this->y_size << std::endl;
+        std::cout << "and" << std::endl;
+        std::cout << "x: " << other.x_size << " y: " << other.y_size << std::endl;
+
         return *this;
         // perhaps this is a bit hacky, should throw an exception, but lets just return the original for now
     }
@@ -64,4 +68,15 @@ void LinalMatrix<T>::print()
         std::cout << "]" << std::endl;
     }
     std::cout << "----" << std::endl;
+}
+
+template <class T>
+LinalMatrix<T> LinalMatrix<T>::translation_matrix(T x, T y, T z)
+{
+    return LinalMatrix<T>({
+        {1, 0, 0, x},
+        {0, 1, 0, y},
+        {0, 0, 1, z},
+        {0, 0, 0, 1}
+    });
 }

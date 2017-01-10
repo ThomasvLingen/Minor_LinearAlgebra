@@ -11,6 +11,7 @@
 class Ship : public LinalModel {
 public:
     Ship();
+    Ship(const LinalMatrix<double>& other);
 private:
 };
 

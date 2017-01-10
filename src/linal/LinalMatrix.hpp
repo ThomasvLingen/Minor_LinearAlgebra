@@ -20,7 +20,10 @@ public:
     size_t y_size;
     size_t x_size;
 
-    LinalMatrix<T> operator*(const LinalMatrix<T>& other);
+    virtual LinalMatrix<T> operator*(const LinalMatrix<T>& other);
+
+    static LinalMatrix<T> translation_matrix(T x, T y, T z);
+
     void print();
 
 private:
