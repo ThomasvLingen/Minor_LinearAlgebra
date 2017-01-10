@@ -112,14 +112,10 @@ void SDLImguiApplication::run()
 
         this->_clear_screen();
 
-        LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, 1, 0);
+        LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, 0, 2);
         this->ship = translation * this->ship;
         this->ship.draw();
 
-        // TODO: Test rotation, this isn't allowed and only exists so we can properly see the ship model
-        //glRotatef(0.2,1.0,0.0,0.0);
-        glRotatef(3,0.0,1.0,0.0);
-        //glRotatef(0.4,0.0,0.0,1.0);
         glFlush();
 
         // Let ImGui render
@@ -132,16 +128,10 @@ void SDLImguiApplication::run()
 
 void SDLImguiApplication::_set_OpenGL_coordinate_mode()
 {
-    // Enable depth test
-    glEnable(GL_DEPTH_TEST);
-    // Accept fragment if it closer to the camera than the former one
-    glDepthFunc(GL_LESS);
-
-
-
     // Setup OpenGL for coordinate system drawing
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
+    gluPerspective(this->vertical_fov, this->_screen_width / this->_screen_height, this->z_near, this->z_far);
     glOrtho(-this->_screen_width/2, this->_screen_width/2,
             -this->_screen_height/2, this->_screen_height/2,
             -1000, 1000);
@@ -161,11 +151,20 @@ void SDLImguiApplication::_handle_SDL_events()
 
 void SDLImguiApplication::_clear_screen()
 {
+    // Set viewport
     glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
-    glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-    // glClear(GL_COLOR_BUFFER_BIT);
+
     // Clear the screen
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Set up the camera
+    glLoadIdentity();
+    gluLookAt(
+        eye.values[0][0], eye.values[1][0], eye.values[2][0],
+        center.values[0][0], center.values[1][0], center.values[2][0],
+        up.values[0][0], up.values[1][0], up.values[2][0]
+    );
 }
 
 void SDLImguiApplication::_GUI_logic()

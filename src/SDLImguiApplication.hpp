@@ -40,6 +40,28 @@ private:
     // GUI elements
     MainMenuBar _main_menu;
 
+    // Perspective constants
+    const double vertical_fov = 90.0;
+    const double z_near = 0;
+    const double z_far = 1000;
+
+    LinalMatrix<double> eye = vector<vector<double>> {
+        {0},
+        {0},
+        {0}
+    };
+
+    LinalMatrix<double> center = vector<vector<double>> {
+        {0},
+        {0},
+        {-1}
+    };
+
+    LinalMatrix<double> up = vector<vector<double>> {
+        {0},
+        {10.0},
+        {0}
+    };
 
     void _handle_SDL_events();
     void _GUI_logic();
