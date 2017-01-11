@@ -84,6 +84,8 @@ LinalMatrix<T> LinalMatrix<T>::translation_matrix(T x, T y, T z)
     });
 }
 
+
+//According to Bart does the rubric not force us to rotate around any axis and thus is only a rotation point enough
 template <class T>
 LinalMatrix<T> LinalMatrix<T>::rotate_matrix(Axis axis, int degrees, T x, T y, T z)
 {
