@@ -121,25 +121,27 @@ template <class T>
 LinalMatrix<T> LinalMatrix<T>::_get_rotation_matrix(Axis axis, int degrees)
 {
     double rad = DegreeUtil::degree_to_radian(degrees);
+    double cos_rad = cos(rad);
+    double sin_rad = sin(rad);
     switch (axis) {
         case Axis::x :
             return LinalMatrix<T> ({
                 {1, 0,        0,         0},
-                {0, cos(rad), -sin(rad), 0},
-                {0, sin(rad), cos(rad),  0},
+                {0, cos_rad, -sin_rad, 0},
+                {0, sin_rad, cos_rad,  0},
                 {0, 0,        0,         1}
             });
         case Axis::y :
             return LinalMatrix<T> ({
-                {cos(rad),  0, sin(rad), 0},
+                {cos_rad,  0, sin_rad, 0},
                 {0,         1, 0,        0},
-                {-sin(rad), 0, cos(rad), 0},
+                {-sin_rad, 0, cos_rad, 0},
                 {0,         0, 0,        1}
             });
         case Axis::z :
             return LinalMatrix<T> ({
-                {cos(rad), -sin(rad), 0, 0},
-                {sin(rad), cos(rad),  0, 0},
+                {cos_rad, -sin_rad, 0, 0},
+                {sin_rad, cos_rad,  0, 0},
                 {0,        0,         1, 0},
                 {0,        0,         0, 1}
             });
