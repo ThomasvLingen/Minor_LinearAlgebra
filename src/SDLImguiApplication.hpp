@@ -11,7 +11,6 @@
 #include <vector>
 #include "imgui.h"
 
-#include "linal/DrawableLinalVector.hpp"
 #include "GUI/MainMenuBar.hpp"
 #include "linal/LinalModel.hpp"
 #include "models/Ship.hpp"
