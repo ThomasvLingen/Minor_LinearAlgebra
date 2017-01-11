@@ -27,6 +27,7 @@ Ship::Ship(const LinalMatrix<double>& other)
 void Ship::handle_input(Keyboard& keyboard)
 {
     this->_roll_if_needed(keyboard);
+    this->_move_if_needed(keyboard);
 }
 
 ///
@@ -53,5 +54,42 @@ void Ship::_roll_if_needed(Keyboard& keyboard)
     }
     else if (keyboard.is_down(SDLK_e)) {
         this->_roll(this->_right_coeff);
+    }
+}
+
+void Ship::_move_x(int direction)
+{
+    LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(this->_move_speed * (double)direction, 0, 0);
+
+    *this = translation * *this;
+}
+
+void Ship::_move_y(int direction)
+{
+    LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, this->_move_speed * (double)direction, 0);
+
+    *this = translation * *this;
+}
+
+void Ship::_move_if_needed(Keyboard& keyboard)
+{
+    if (keyboard.is_down(SDLK_w) && keyboard.is_down(SDLK_s)) {
+        // Do nothing, since W and S cancel out each other
+    }
+    else if (keyboard.is_down(SDLK_w)) {
+        this->_move_y(this->_move_up_coeff);
+    }
+    else if (keyboard.is_down(SDLK_s)) {
+        this->_move_y(this->_move_down_coeff);
+    }
+
+    if (keyboard.is_down(SDLK_a) && keyboard.is_down(SDLK_d)) {
+        // Do nothing, since A and D cancel out each other
+    }
+    else if (keyboard.is_down(SDLK_a)) {
+        this->_move_x(this->_move_left_coeff);
+    }
+    else if (keyboard.is_down(SDLK_d)) {
+        this->_move_x(this->_move_right_coeff);
     }
 }

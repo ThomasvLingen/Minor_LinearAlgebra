@@ -10,7 +10,7 @@
 ** TODO Vector inproduct
 ** TODO Vector uitproduct
 ** TODO Make sure that Matrixes are used efficiently (no double dot products)
-** TODO Make ship controllable [translation]
+** DONE Make ship controllable [translation]
    Thomas
 ** DONE Make ship controllable [barrel roll]
    Thomas
