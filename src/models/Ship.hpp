@@ -9,6 +9,8 @@
 #include "../linal/LinalModel.hpp"
 #include "../Keyboard.hpp"
 
+typedef vector<LinalMatrix<double>> MovementStack;
+
 class Ship : public LinalModel {
 public:
     Ship();
@@ -25,11 +27,11 @@ private:
     int _move_up_coeff = 1;
     int _move_down_coeff = -1;
 
-    void _roll_if_needed(Keyboard& keyboard);
-    void _roll(int direction);
-    void _move_if_needed(Keyboard& keyboard);
-    void _move_y(int direction);
-    void _move_x(int direction);
+    void _roll_if_needed(Keyboard& keyboard, MovementStack& movement_stack);
+    LinalMatrix<double> _get_roll_matrix(int direction);
+    void _move_if_needed(Keyboard& keyboard, MovementStack& movement_stack);
+    LinalMatrix<double> _get_move_y_matrix(int direction);
+    LinalMatrix<double> _get_move_x_matrix(int direction);
 };
 
 

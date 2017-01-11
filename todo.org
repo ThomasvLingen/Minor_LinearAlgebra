@@ -6,7 +6,7 @@
 ** TODO Matrix rotation
    Jorg
 ** TODO Matrix scaling
-   Jorg (Gestolen van Thomas)
+   Thomas (Gestolen van Jorg(Gestolen van Thomas))
 ** TODO Vector inproduct
 ** TODO Vector uitproduct
 ** TODO Make sure that Matrixes are used efficiently (no double dot products)

@@ -162,3 +162,14 @@ LinalMatrix<T> LinalMatrix<T>::average_column()
 
     return average; //implicit conversion
 }
+
+template<class T>
+LinalMatrix<T> LinalMatrix<T>::identity_matrix()
+{
+    return LinalMatrix<T>({
+        {1, 0, 0, 0},
+        {0, 1, 0, 0},
+        {0, 0, 1, 0},
+        {0, 0, 0, 1}
+    });
+}
