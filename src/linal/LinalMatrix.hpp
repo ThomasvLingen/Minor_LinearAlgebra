@@ -23,9 +23,12 @@ public:
 
     virtual LinalMatrix<T> operator*(const LinalMatrix<T>& other);
 
+    LinalMatrix<T> average_column();
+
     static LinalMatrix<T> translation_matrix(T x, T y, T z);
 
     static LinalMatrix<T> rotate_matrix(Axis axis, int degrees, T x, T y, T z);
+    static LinalMatrix<T> rotate_matrix(Axis axis, int degrees, LinalMatrix<T> rotation_point);
     static LinalMatrix<T> rotate_matrix(Axis axis, int degrees);
 
     void print();

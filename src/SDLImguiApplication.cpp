@@ -114,7 +114,12 @@ void SDLImguiApplication::run()
         this->_clear_screen();
 
         LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, 0, 2);
-        LinalMatrix<double> rotation = LinalMatrix<double>::rotate_matrix(Axis::z, 1, -50, 0, 0);
+        LinalMatrix<double> rotation = LinalMatrix<double>::rotate_matrix(
+            Axis::z,
+            1,
+            this->ship.average_column()
+        );
+
         this->ship = translation * rotation * this->ship;
         this->ship.draw();
 
