@@ -22,6 +22,7 @@ public:
     size_t x_size;
 
     virtual LinalMatrix<T> operator*(const LinalMatrix<T>& other);
+    virtual LinalMatrix<T> operator-(const LinalMatrix<T>& other);
 
     LinalMatrix<T> average_column();
 

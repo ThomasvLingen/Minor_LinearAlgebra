@@ -183,3 +183,27 @@ LinalMatrix<T> LinalMatrix<T>::scaling_matrix(T x, T y, T z)
         {0, 0, 0, 1}
     });
 }
+
+template<class T>
+LinalMatrix<T> LinalMatrix<T>::operator-(const LinalMatrix& other)
+{
+    if(this->x_size != other.x_size || this->y_size != other.y_size ) {
+        std::cout << "Invalid matrix subtraction" << std::endl;
+        std::cout << "x: " << this->x_size << " y: " << this->y_size << std::endl;
+        std::cout << "and" << std::endl;
+        std::cout << "x: " << other.x_size << " y: " << other.y_size << std::endl;
+
+        return *this;
+        // perhaps this is a bit hacky, should throw an exception, but lets just return the original for now
+    }
+
+    vector<vector<T>> answer(this->values.size(), vector<T>(this->values.back().size()));
+
+    for (size_t y = 0; y < this->values.size(); y++) {
+        for (size_t x = 0; x < this->values[y].size(); x++) {
+            answer[y][x] = this->values[y][x] - other.values[y][x];
+        }
+    }
+
+    return answer; // Implicit conversion (vector<vector<T>> --> LinalMatrix<T>)
+}
