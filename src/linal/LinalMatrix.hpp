@@ -27,6 +27,8 @@ public:
 
     static LinalMatrix<T> identity_matrix();
 
+    static LinalMatrix<T> scaling_matrix(T x, T y, T z);
+
     static LinalMatrix<T> translation_matrix(T x, T y, T z);
 
     static LinalMatrix<T> rotate_matrix(Axis axis, int degrees, T x, T y, T z);

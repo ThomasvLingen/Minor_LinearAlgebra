@@ -170,10 +170,16 @@ LinalMatrix<T> LinalMatrix<T>::average_column()
 template<class T>
 LinalMatrix<T> LinalMatrix<T>::identity_matrix()
 {
+    return LinalMatrix<T>::scaling_matrix(1, 1, 1);
+}
+
+template<class T>
+LinalMatrix<T> LinalMatrix<T>::scaling_matrix(T x, T y, T z)
+{
     return LinalMatrix<T>({
-        {1, 0, 0, 0},
-        {0, 1, 0, 0},
-        {0, 0, 1, 0},
+        {x, 0, 0, 0},
+        {0, y, 0, 0},
+        {0, 0, z, 0},
         {0, 0, 0, 1}
     });
 }

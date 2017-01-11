@@ -30,6 +30,7 @@ void Ship::handle_input(Keyboard& keyboard)
 
     this->_roll_if_needed(keyboard, movement_stack);
     this->_move_if_needed(keyboard, movement_stack);
+    this->_expand_if_needed(keyboard, movement_stack);
 
     // If movement_stack is empty, there is no movement to apply to the ship
     if (movement_stack.size() > 0) {
@@ -100,4 +101,22 @@ void Ship::_move_if_needed(Keyboard& keyboard, MovementStack& movement_stack)
     else if (keyboard.is_down(SDLK_d)) {
         movement_stack.push_back(this->_get_move_x_matrix(this->_move_right_coeff));
     }
+}
+
+void Ship::_expand_if_needed(Keyboard& keyboard, MovementStack& movement_stack)
+{
+    if (keyboard.is_down(SDLK_EQUALS) && keyboard.is_down(SDLK_MINUS)) {
+        // Do nothing, since + and - cancel each other out
+    }
+    else if (keyboard.is_down(SDLK_EQUALS)) {
+        movement_stack.push_back(this->_get_expand_z_matrix(this->_growth_coeff));
+    }
+    else if (keyboard.is_down(SDLK_MINUS)) {
+        movement_stack.push_back(this->_get_expand_z_matrix(this->_shrink_coeff));
+    }
+}
+
+LinalMatrix<double> Ship::_get_expand_z_matrix(double coeff)
+{
+    return LinalMatrix<double>::scaling_matrix(1 + coeff, 1 + coeff, 1 + coeff);
 }
