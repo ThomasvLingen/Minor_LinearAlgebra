@@ -3,9 +3,9 @@
    Thomas
 ** DONE Perspective
    Thomas
-** TODO Matrix rotation
+** DONE Matrix rotation
    Jorg
-** TODO Matrix scaling
+** DONE Matrix scaling
    Thomas (Gestolen van Jorg(Gestolen van Thomas))
 ** TODO Vector inproduct
 ** TODO Vector uitproduct
