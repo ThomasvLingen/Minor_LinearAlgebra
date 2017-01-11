@@ -33,7 +33,7 @@ void Ship::handle_input(Keyboard& keyboard)
 
     // If movement_stack is empty, there is no movement to apply to the ship
     if (movement_stack.size() > 0) {
-        // We get the resulting matrix of all the matrixes on the movement stack
+        // We calculate the resulting matrix of all the matrixes on the movement stack instead of applying them individually
         LinalMatrix<double> to_apply = LinalMatrix<double>::identity_matrix();
 
         for (LinalMatrix<double>& movement_matrix : movement_stack) {
