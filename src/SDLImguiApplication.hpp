@@ -15,6 +15,7 @@
 #include "GUI/MainMenuBar.hpp"
 #include "linal/LinalModel.hpp"
 #include "models/Ship.hpp"
+#include "Keyboard.hpp"
 
 class SDLImguiApplication {
 friend class MainMenuBar;
@@ -39,6 +40,7 @@ private:
 
     // GUI elements
     MainMenuBar _main_menu;
+    Keyboard keyboard;
 
     // Perspective constants
     const double vertical_fov = 90.0;

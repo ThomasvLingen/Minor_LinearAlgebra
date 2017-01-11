@@ -23,3 +23,35 @@ Ship::Ship(const LinalMatrix<double>& other)
 {
 
 }
+
+void Ship::handle_input(Keyboard& keyboard)
+{
+    this->_roll_if_needed(keyboard);
+}
+
+///
+/// \param direction direction of the roll, -1 is left, 1, is right. Internally, this is multiplied with the speed to
+///                  get the final degrees to roll. So picking more than 1 or -1 will actually increase the roll speed.
+void Ship::_roll(int direction)
+{
+    LinalMatrix<double> rotation_matrix = LinalMatrix::rotate_matrix(
+        Axis::z,
+        direction * this->_roll_speed,
+        this->average_column()
+    );
+
+    *this = rotation_matrix * *this;
+}
+
+void Ship::_roll_if_needed(Keyboard& keyboard)
+{
+    if (keyboard.is_down(SDLK_q) && keyboard.is_down(SDLK_e)) {
+        // Do nothing, since Q and E cancel out each other
+    }
+    else if (keyboard.is_down(SDLK_q)) {
+        this->_roll(this->_left_coeff);
+    }
+    else if (keyboard.is_down(SDLK_e)) {
+        this->_roll(this->_right_coeff);
+    }
+}

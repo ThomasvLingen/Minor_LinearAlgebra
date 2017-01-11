@@ -113,14 +113,7 @@ void SDLImguiApplication::run()
 
         this->_clear_screen();
 
-        LinalMatrix<double> translation = LinalMatrix<double>::translation_matrix(0, 0, 2);
-        LinalMatrix<double> rotation = LinalMatrix<double>::rotate_matrix(
-            Axis::z,
-            1,
-            this->ship.average_column()
-        );
-
-        this->ship = translation * rotation * this->ship;
+        this->ship.handle_input(this->keyboard);
         this->ship.draw();
 
         glFlush();
@@ -150,8 +143,18 @@ void SDLImguiApplication::_handle_SDL_events()
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         ImGui_ImplSdl_ProcessEvent(&event);
-        if (event.type == SDL_QUIT) {
-            this->_running = false;
+
+        switch (event.type) {
+            case SDL_QUIT:
+                this->_running = false;
+                break;
+            case SDL_KEYDOWN:
+                this->keyboard.key_pressed(event.key.keysym.sym);
+                break;
+            case SDL_KEYUP:
+                this->keyboard.key_released(event.key.keysym.sym);
+            default:
+                break;
         }
     }
 }
