@@ -17,6 +17,11 @@ public:
     void draw(CameraMatrix& camera, PerspectiveMatrix& perspective);
 private:
 
+    static const size_t x = 0;
+    static const size_t y = 1;
+    static const size_t z = 2;
+    static const size_t w = 3;
+
     LinalMatrix<double> get_screenspace_matrix(CameraMatrix& camera, PerspectiveMatrix& perspective);
     double _get_corrected_coord(double coordinate, double w, double axis_length);
 };

@@ -16,8 +16,8 @@
 ** DONE Make ship controllable [barrel roll]
    Thomas
 ** TODO Make ship shoot an object
-** TODO Reimplement perspective with LinalMatrix
+** DONE Reimplement perspective with LinalMatrix
 *** DONE LinalVector normalise
 *** DONE Camera matrix
 *** DONE Perspective projection matrix
-*** TODO w calculations
+*** DONE w calculations

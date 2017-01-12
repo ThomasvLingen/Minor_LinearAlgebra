@@ -34,9 +34,9 @@ void LinalModel::draw(CameraMatrix& camera, PerspectiveMatrix& perspective)
     // We unfortunately can't range based for here
     for (size_t vert_index = 0; vert_index < draw_vertices.x_size; vert_index++) {
         glVertex3d(
-            draw_vertices.values[0][vert_index],
-            draw_vertices.values[1][vert_index],
-            draw_vertices.values[2][vert_index]
+            draw_vertices.values[x][vert_index],
+            draw_vertices.values[y][vert_index],
+            draw_vertices.values[z][vert_index]
         );
     }
     glEnd();
@@ -46,19 +46,19 @@ LinalMatrix<double> LinalModel::get_screenspace_matrix(CameraMatrix& camera, Per
 {
     LinalMatrix<double> non_corrected_matrix = perspective.get_matrix() * camera.get_matrix() * *this;
 
-    vector<double> x;
-    vector<double> y;
-    vector<double> z;
+    vector<double> x_vec;
+    vector<double> y_vec;
+    vector<double> z_vec;
 
     for (size_t vert_index = 0; vert_index < non_corrected_matrix.x_size; vert_index++) {
-        if (non_corrected_matrix.values[3][vert_index] > 0) {
-            x.push_back(this->_get_corrected_coord(non_corrected_matrix.values[0][vert_index], non_corrected_matrix.values[3][vert_index], 640));
-            y.push_back(this->_get_corrected_coord(non_corrected_matrix.values[1][vert_index], non_corrected_matrix.values[3][vert_index], 640));
-            z.push_back(this->_get_corrected_coord(non_corrected_matrix.values[2][vert_index], non_corrected_matrix.values[3][vert_index], 1000));
+        if (non_corrected_matrix.values[w][vert_index] > 0) {
+            x_vec.push_back(this->_get_corrected_coord(non_corrected_matrix.values[x][vert_index], non_corrected_matrix.values[w][vert_index], 640));
+            y_vec.push_back(this->_get_corrected_coord(non_corrected_matrix.values[y][vert_index], non_corrected_matrix.values[w][vert_index], 640));
+            z_vec.push_back(this->_get_corrected_coord(non_corrected_matrix.values[z][vert_index], non_corrected_matrix.values[w][vert_index], 1000));
         }
     }
 
-    return LinalMatrix<double>({x, y, z});
+    return LinalMatrix<double>({x_vec, y_vec, z_vec});
 }
 
 double LinalModel::_get_corrected_coord(double coordinate, double w, double axis_length)
