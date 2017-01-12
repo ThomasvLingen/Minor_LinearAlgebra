@@ -17,7 +17,7 @@
    Thomas
 ** TODO Make ship shoot an object
 ** TODO Reimplement perspective with LinalMatrix
-*** TODO LinalVector normalise
+*** DONE LinalVector normalise
 *** TODO Camera matrix
 *** TODO Perspective projection matrix
 *** TODO w calculations

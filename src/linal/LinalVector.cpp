@@ -43,17 +43,22 @@ double LinalVector::operator[](size_t index)
 
 LinalVector LinalVector::normalise()
 {
-    double length = sqrt(
-          (*this)[x] * (*this)[x]
-        + (*this)[y] * (*this)[y]
-        + (*this)[z] * (*this)[z]
-    );
+    double length = this->length();
 
     return {
         (*this)[x] / length,
         (*this)[y] / length,
         (*this)[z] / length
     };
+}
+
+double LinalVector::length()
+{
+    return sqrt(
+        (*this)[x] * (*this)[x]
+        + (*this)[y] * (*this)[y]
+        + (*this)[z] * (*this)[z]
+    );
 }
 
 

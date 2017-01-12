@@ -14,6 +14,7 @@ public:
     LinalVector(const LinalMatrix& other);
 
     LinalVector normalise();
+    double length();
     double operator[](size_t index);
 
     static double in_product(LinalVector& a, LinalVector& b);
