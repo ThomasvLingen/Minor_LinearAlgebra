@@ -19,8 +19,6 @@ SDLImguiApplication::SDLImguiApplication()
 , _running(true)
 , _main_menu(*this)
 , _stats(*this)
-// , _add_vector_window(*this)
-// , _add_vector_sum_window(*this)
 {
     if (!this->_init_SDL()) {
         cout << "Could not init SDL" << endl;

@@ -19,8 +19,6 @@
 
 class SDLImguiApplication {
 friend class MainMenuBar;
-friend class AddVectorWindow;
-friend class AddVectorSumWindow;
 friend class StatsWindow;
 
 public:

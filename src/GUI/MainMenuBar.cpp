@@ -7,9 +7,7 @@
 #include "../SDLImguiApplication.hpp"
 
 MainMenuBar::MainMenuBar(SDLImguiApplication& context)
-: add_vector_open(false)
-, add_vector_sum_open(false)
-, stats_window_open(false)
+: stats_window_open(false)
 , _context(context)
 {
 
