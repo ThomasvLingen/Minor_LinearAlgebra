@@ -50,8 +50,7 @@ private:
     LinalMatrix<double> eye = vector<vector<double>> {
         {0},
         {0},
-        {1000},
-        {1}
+        {-1000},
     };
 
     // This is the center
@@ -59,14 +58,12 @@ private:
         {0},
         {0},
         {0},
-        {1}
     };
 
     LinalMatrix<double> up = vector<vector<double>> {
         {0},
         {1},
         {0},
-        {1}
     };
 
     CameraMatrix _camera;
