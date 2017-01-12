@@ -104,7 +104,8 @@ bool SDLImguiApplication::_init_imgui()
 void SDLImguiApplication::run()
 {
     this->_set_OpenGL_coordinate_mode();
-    // this->ship = LinalMatrix<double>::translation_matrix(0, 0, 0) * this->ship;
+    // This gives it a nicer start position
+    this->ship = LinalMatrix<double>::translation_matrix(0, -200, -750) * this->ship;
 
     while (this->_running) {
         this->_handle_SDL_events();
