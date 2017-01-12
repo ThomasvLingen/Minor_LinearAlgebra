@@ -15,11 +15,13 @@
 #include "linal/LinalModel.hpp"
 #include "models/Ship.hpp"
 #include "Keyboard.hpp"
+#include "GUI/StatsWindow.hpp"
 
 class SDLImguiApplication {
 friend class MainMenuBar;
 friend class AddVectorWindow;
 friend class AddVectorSumWindow;
+friend class StatsWindow;
 
 public:
     SDLImguiApplication();
@@ -39,6 +41,7 @@ private:
 
     // GUI elements
     MainMenuBar _main_menu;
+    StatsWindow _stats;
     Keyboard keyboard;
 
     // Perspective constants

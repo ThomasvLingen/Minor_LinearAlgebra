@@ -15,6 +15,7 @@ public:
 
     bool add_vector_open;
     bool add_vector_sum_open;
+    bool stats_window_open;
 
     void GUI_logic();
 private:

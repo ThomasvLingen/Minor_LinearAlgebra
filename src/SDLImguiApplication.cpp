@@ -18,6 +18,7 @@ SDLImguiApplication::SDLImguiApplication()
 , _screen_height(640)
 , _running(true)
 , _main_menu(*this)
+, _stats(*this)
 // , _add_vector_window(*this)
 // , _add_vector_sum_window(*this)
 {
@@ -186,4 +187,5 @@ void SDLImguiApplication::_GUI_logic()
     ImGui_ImplSdl_NewFrame(this->_window);
 
     this->_main_menu.GUI_logic();
+    this->_stats.GUI_logic();
 }
