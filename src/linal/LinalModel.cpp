@@ -51,7 +51,9 @@ void LinalModel::draw(CameraMatrix& camera, PerspectiveMatrix& perspective)
                 320 +
                 (((draw_vertices.values[1][vert_index] + 1) / (draw_vertices.values[3][vert_index] + 0.00000001)) *
                  320),
-                (draw_vertices.values[2][vert_index]) / 1000
+                500 +
+                (((draw_vertices.values[2][vert_index] + 1) / (draw_vertices.values[3][vert_index] + 0.00000001)) *
+                 500)
             );
         }
     }
