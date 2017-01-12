@@ -25,17 +25,7 @@ LinalModel::LinalModel(const LinalMatrix<double>& other)
 
 void LinalModel::draw(CameraMatrix& camera, PerspectiveMatrix& perspective)
 {
-    // We copy the model here so that we only apply the camera and perspective matrix for this draw call.
-    // This way, we don't actually transform the vertices of the object.
-//    std::cout << "Camera: " << std::endl;
-//    camera.get_matrix().print();
-//    std::cout << "Perspective: " << std::endl;
-//    perspective.get_matrix().print();
     LinalModel draw_vertices = this->get_screenspace_matrix(camera, perspective);
-//    std::cout << "Original: " << std::endl;
-//    this->print();
-//    std::cout << "Draw_verts: " << std::endl;
-//    draw_vertices.print();
 
     glMatrixMode(GL_MODELVIEW);
     glBegin(GL_LINES); // The model is drawn using lines
