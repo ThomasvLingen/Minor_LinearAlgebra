@@ -18,7 +18,7 @@ public:
 private:
 
     LinalMatrix<double> get_screenspace_matrix(CameraMatrix& camera, PerspectiveMatrix& perspective);
-    LinalMatrix<double> get_correction_matrix(int screen_size);
+    double _get_corrected_coord(double coordinate, double w, double axis_length);
 };
 
 
