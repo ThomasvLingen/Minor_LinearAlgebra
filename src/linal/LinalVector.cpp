@@ -4,17 +4,18 @@
 
 #include "LinalVector.hpp"
 
-LinalVector::LinalVector(double x, double y, double z)
+LinalVector::LinalVector(double x, double y, double z, double w)
 : LinalMatrix({
     {x},
     {y},
-    {z}
+    {z},
+    {w}
 })
 {
 
 }
 
-LinalVector::LinalVector(const LinalMatrix& other)
+LinalVector::LinalVector(const LinalMatrix<double>& other)
 : LinalMatrix(other.values)
 {
 

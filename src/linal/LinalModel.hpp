@@ -7,12 +7,18 @@
 
 
 #include "LinalMatrix.hpp"
+#include "CameraMatrix.hpp"
+#include "PerspectiveMatrix.hpp"
 
 class LinalModel : public LinalMatrix<double> {
 public:
     LinalModel(vector<vector<double>> vertices);
-    void draw();
+    LinalModel(const LinalMatrix<double>& other);
+    void draw(CameraMatrix& camera, PerspectiveMatrix& perspective);
 private:
+
+    LinalMatrix<double> get_screenspace_matrix(CameraMatrix& camera, PerspectiveMatrix& perspective);
+    LinalMatrix<double> get_correction_matrix(int screen_size);
 };
 
 

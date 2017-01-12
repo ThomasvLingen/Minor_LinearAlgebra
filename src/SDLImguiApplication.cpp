@@ -18,6 +18,8 @@ SDLImguiApplication::SDLImguiApplication()
 , _running(true)
 , _main_menu(*this)
 , _stats(*this)
+, _camera(this->eye, this->look_at, this->up)
+, _perspective(this->z_near, this->z_far, this->vertical_fov)
 {
     if (!this->_init_SDL()) {
         cout << "Could not init SDL" << endl;
@@ -102,7 +104,7 @@ bool SDLImguiApplication::_init_imgui()
 void SDLImguiApplication::run()
 {
     this->_set_OpenGL_coordinate_mode();
-    this->ship = LinalMatrix<double>::translation_matrix(50, 0, 0) * this->ship;
+    // this->ship = LinalMatrix<double>::translation_matrix(0, 0, 0) * this->ship;
 
     while (this->_running) {
         this->_handle_SDL_events();
@@ -112,7 +114,7 @@ void SDLImguiApplication::run()
         this->_clear_screen();
 
         this->ship.handle_input(this->keyboard);
-        this->ship.draw();
+        this->ship.draw(this->_camera, this->_perspective);
 
         glFlush();
 

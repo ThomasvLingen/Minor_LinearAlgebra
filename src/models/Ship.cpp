@@ -101,6 +101,16 @@ void Ship::_move_if_needed(Keyboard& keyboard, MovementStack& movement_stack)
     else if (keyboard.is_down(SDLK_d)) {
         movement_stack.push_back(this->_get_move_x_matrix(this->_move_right_coeff));
     }
+
+    if (keyboard.is_down(SDLK_z) && keyboard.is_down(SDLK_x)) {
+        // Do nothing, since A and D cancel out each other
+    }
+    else if (keyboard.is_down(SDLK_z)) {
+        movement_stack.push_back(LinalMatrix<double>::translation_matrix(0, 0, 1));
+    }
+    else if (keyboard.is_down(SDLK_x)) {
+        movement_stack.push_back(LinalMatrix<double>::translation_matrix(0, 0, -1));
+    }
 }
 
 void Ship::_expand_if_needed(Keyboard& keyboard, MovementStack& movement_stack)

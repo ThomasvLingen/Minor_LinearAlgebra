@@ -43,27 +43,34 @@ private:
     Keyboard keyboard;
 
     // Perspective constants
-    const double vertical_fov = 90.0;
-    const double z_near = 0;
+    const int vertical_fov = 90;
+    const double z_near = 1;
     const double z_far = 1000;
 
     LinalMatrix<double> eye = vector<vector<double>> {
         {0},
         {0},
-        {-1000}
+        {1000},
+        {1}
     };
 
-    LinalMatrix<double> center = vector<vector<double>> {
+    // This is the center
+    LinalMatrix<double> look_at = vector<vector<double>> {
         {0},
         {0},
-        {0}
+        {0},
+        {1}
     };
 
     LinalMatrix<double> up = vector<vector<double>> {
         {0},
         {1},
-        {0}
+        {0},
+        {1}
     };
+
+    CameraMatrix _camera;
+    PerspectiveMatrix _perspective;
 
     void _handle_SDL_events();
     void _GUI_logic();
