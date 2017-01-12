@@ -26,16 +26,20 @@ private:
     int _move_right_coeff = -1;
     int _move_up_coeff = 1;
     int _move_down_coeff = -1;
+    int _move_forward_coeff = 1;
+    int _move_backward_coeff = -1;
+
     double _growth_coeff = 0.01;
     double _shrink_coeff = -0.01;
 
     void _roll_if_needed(Keyboard& keyboard, MovementStack& movement_stack);
     LinalMatrix<double> _get_roll_matrix(int direction);
     void _move_if_needed(Keyboard& keyboard, MovementStack& movement_stack);
-    LinalMatrix<double> _get_move_y_matrix(int direction);
-    LinalMatrix<double> _get_move_x_matrix(int direction);
     void _expand_if_needed(Keyboard& keyboard, MovementStack& movement_stack);
-    LinalMatrix<double> _get_expand_z_matrix(double growth_coeff);
+    LinalMatrix<double> _get_scaling_matrix(double growth_coeff);
+    LinalMatrix<double> _get_move_x_matrix(int direction);
+    LinalMatrix<double> _get_move_y_matrix(int direction);
+    LinalMatrix<double> _get_move_z_matrix(int direction);
 };
 
 

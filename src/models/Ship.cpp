@@ -70,16 +70,6 @@ void Ship::_roll_if_needed(Keyboard& keyboard, vector<LinalMatrix<double>>& move
     }
 }
 
-LinalMatrix<double> Ship::_get_move_y_matrix(int direction)
-{
-    return LinalMatrix<double>::translation_matrix(0, this->_move_speed * (double)direction, 0);
-}
-
-LinalMatrix<double> Ship::_get_move_x_matrix(int direction)
-{
-    return LinalMatrix<double>::translation_matrix(this->_move_speed * (double)direction, 0, 0);;
-}
-
 void Ship::_move_if_needed(Keyboard& keyboard, MovementStack& movement_stack)
 {
     if (keyboard.is_down(SDLK_w) && keyboard.is_down(SDLK_s)) {
@@ -106,10 +96,10 @@ void Ship::_move_if_needed(Keyboard& keyboard, MovementStack& movement_stack)
         // Do nothing, since A and D cancel out each other
     }
     else if (keyboard.is_down(SDLK_z)) {
-        movement_stack.push_back(LinalMatrix<double>::translation_matrix(0, 0, 1));
+        movement_stack.push_back(this->_get_move_z_matrix(this->_move_forward_coeff));
     }
     else if (keyboard.is_down(SDLK_x)) {
-        movement_stack.push_back(LinalMatrix<double>::translation_matrix(0, 0, -1));
+        movement_stack.push_back(this->_get_move_z_matrix(this->_move_backward_coeff));
     }
 }
 
@@ -119,14 +109,29 @@ void Ship::_expand_if_needed(Keyboard& keyboard, MovementStack& movement_stack)
         // Do nothing, since + and - cancel each other out
     }
     else if (keyboard.is_down(SDLK_EQUALS)) {
-        movement_stack.push_back(this->_get_expand_z_matrix(this->_growth_coeff));
+        movement_stack.push_back(this->_get_scaling_matrix(this->_growth_coeff));
     }
     else if (keyboard.is_down(SDLK_MINUS)) {
-        movement_stack.push_back(this->_get_expand_z_matrix(this->_shrink_coeff));
+        movement_stack.push_back(this->_get_scaling_matrix(this->_shrink_coeff));
     }
 }
 
-LinalMatrix<double> Ship::_get_expand_z_matrix(double coeff)
+LinalMatrix<double> Ship::_get_scaling_matrix(double coeff)
 {
     return LinalMatrix<double>::scaling_matrix(1 + coeff, 1 + coeff, 1 + coeff);
+}
+
+LinalMatrix<double> Ship::_get_move_x_matrix(int direction)
+{
+    return LinalMatrix<double>::translation_matrix(this->_move_speed * (double)direction, 0, 0);;
+}
+
+LinalMatrix<double> Ship::_get_move_y_matrix(int direction)
+{
+    return LinalMatrix<double>::translation_matrix(0, this->_move_speed * (double)direction, 0);
+}
+
+LinalMatrix<double> Ship::_get_move_z_matrix(int direction)
+{
+    return LinalMatrix<double>::translation_matrix(0, 0, this->_move_speed * (double)direction);
 }
