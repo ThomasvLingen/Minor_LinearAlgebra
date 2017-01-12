@@ -5,7 +5,6 @@
 #include <SDL2/SDL_opengl.h>
 #include "SDLImguiApplication.hpp"
 #include "imgui_impl_sdl.h"
-#include <GL/glu.h>
 
 using std::cout;
 using std::endl;
@@ -130,7 +129,6 @@ void SDLImguiApplication::_set_OpenGL_coordinate_mode()
     // Setup OpenGL for coordinate system drawing
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(this->vertical_fov, this->_screen_width / this->_screen_height, this->z_near, this->z_far);
     glOrtho(-this->_screen_width/2, this->_screen_width/2,
             -this->_screen_height/2, this->_screen_height/2,
             -1000, 1000);
@@ -166,17 +164,6 @@ void SDLImguiApplication::_clear_screen()
     // Clear the screen
     glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
     glClear(GL_COLOR_BUFFER_BIT);
-
-    // Set up the camera
-    glLoadIdentity();
-    glOrtho(-this->_screen_width/2, this->_screen_width/2,
-        -this->_screen_height/2, this->_screen_height/2,
-        -1000, 1000);
-    gluLookAt(
-        eye.values[0][0], eye.values[1][0], eye.values[2][0],
-        center.values[0][0], center.values[1][0], center.values[2][0],
-        up.values[0][0], up.values[1][0], up.values[2][0]
-    );
 }
 
 void SDLImguiApplication::_GUI_logic()
