@@ -131,8 +131,8 @@ void SDLImguiApplication::_set_OpenGL_coordinate_mode()
     // Setup OpenGL for coordinate system drawing
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-this->_screen_width/2, this->_screen_width/2,
-            -this->_screen_height/2, this->_screen_height/2,
+    glOrtho(0, this->_screen_width,
+            0, this->_screen_height,
             -1000, 1000);
     glMatrixMode(GL_MODELVIEW);
 }
