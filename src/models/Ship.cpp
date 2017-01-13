@@ -5,7 +5,7 @@
 #include "Ship.hpp"
 
 Ship::Ship()
-: LinalModel({
+: model({
     // For reference, see big boy paper
     //             side 1                |                side 2                 |              side 3
     // 1    | 2      | 3       | 4       | 5       | 6       | 7       | 8       | 9       | 10      | 11      | 12
@@ -18,13 +18,20 @@ Ship::Ship()
 
 }
 
-Ship::Ship(const LinalMatrix<double>& other)
-: LinalModel(other.values)
+void Ship::handle_input(Keyboard& keyboard)
 {
+    if (keyboard.is_down(SDLK_SPACE) && !this->_space_was_down) {
+        if (keyboard.is_down(SDLK_SPACE)) {
+            this->_shoot();
+        }
+    }
 
+    this->_space_was_down = keyboard.is_down(SDLK_SPACE);
+    this->_do_movement(keyboard);
 }
 
-void Ship::handle_input(Keyboard& keyboard)
+
+void Ship::_do_movement(Keyboard& keyboard)
 {
     vector<LinalMatrix<double>> movement_stack;
 
@@ -41,7 +48,7 @@ void Ship::handle_input(Keyboard& keyboard)
             to_apply = movement_matrix * to_apply;
         }
 
-        *this = to_apply * *this;
+        this->model = to_apply * this->model;
     }
 }
 
@@ -50,10 +57,10 @@ void Ship::handle_input(Keyboard& keyboard)
 ///                  get the final degrees to roll. So picking more than 1 or -1 will actually increase the roll speed.
 LinalMatrix<double> Ship::_get_roll_matrix(int direction)
 {
-    return LinalMatrix::rotate_matrix(
+    return LinalMatrix<double>::rotate_matrix(
         Axis::z,
         direction * this->_roll_speed,
-        this->average_column()
+        this->model.average_column()
     );
 }
 
@@ -134,4 +141,44 @@ LinalMatrix<double> Ship::_get_move_y_matrix(int direction)
 LinalMatrix<double> Ship::_get_move_z_matrix(int direction)
 {
     return LinalMatrix<double>::translation_matrix(0, 0, this->_move_speed * (double)direction);
+}
+
+LinalVector Ship::_get_index_vector(size_t index)
+{
+    return LinalVector(this->model, index);
+}
+
+LinalVector Ship::get_shoot_direction()
+{
+    // Shoot direction indexes
+    const size_t base_index = 10;
+    const size_t plane_1_index = 16;
+    const size_t plane_2_index = 8;
+
+    LinalVector a = this->_get_index_vector(plane_1_index) - this->_get_index_vector(base_index);
+    LinalVector b = this->_get_index_vector(plane_2_index) - this->_get_index_vector(base_index);
+
+    // Get cross product to get a vector perpendicular to the top plane of the ship.
+    return LinalVector::cross_product(a, b).normalise();
+}
+
+void Ship::_shoot()
+{
+    this->arrows.push_back(Arrow(this->get_shoot_direction(), this->model.average_column()));
+}
+
+void Ship::update()
+{
+    for (Arrow& arrow : this->arrows) {
+        arrow.update();
+    }
+}
+
+void Ship::draw(CameraMatrix& camera, PerspectiveMatrix& perspective)
+{
+    this->model.draw(camera, perspective);
+
+    for (Arrow& arrow : this->arrows) {
+        arrow.model.draw(camera, perspective);
+    }
 }

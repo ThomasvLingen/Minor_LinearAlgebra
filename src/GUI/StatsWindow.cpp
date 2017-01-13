@@ -17,7 +17,7 @@ void StatsWindow::GUI_logic()
     if (this->_context._main_menu.stats_window_open) {
         ImGui::Begin("Stats", &this->_context._main_menu.stats_window_open);
 
-        LinalMatrix<double> ship_coords = this->_context.ship.average_column();
+        LinalMatrix<double> ship_coords = this->_context.ship.model.average_column();
 
         ImGui::Text("Ship coordinates");
         ImGui::Text("x: %f", ship_coords.values[0][0]);

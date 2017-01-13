@@ -5,6 +5,7 @@
 #include <SDL2/SDL_opengl.h>
 #include "SDLImguiApplication.hpp"
 #include "imgui_impl_sdl.h"
+#include "models/Arrow.hpp"
 
 using std::cout;
 using std::endl;
@@ -105,7 +106,7 @@ void SDLImguiApplication::run()
 {
     this->_set_OpenGL_coordinate_mode();
     // This gives it a nicer start position
-    this->ship = LinalMatrix<double>::translation_matrix(0, -200, -750) * this->ship;
+    this->ship.model = LinalMatrix<double>::translation_matrix(0, -200, -750) * this->ship.model;
 
     while (this->_running) {
         this->_handle_SDL_events();
@@ -115,6 +116,7 @@ void SDLImguiApplication::run()
         this->_clear_screen();
 
         this->ship.handle_input(this->keyboard);
+        this->ship.update();
         this->ship.draw(this->_camera, this->_perspective);
 
         glFlush();
