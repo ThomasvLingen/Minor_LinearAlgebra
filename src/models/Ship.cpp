@@ -18,16 +18,15 @@ Ship::Ship()
 
 }
 
-void Ship::handle_input(Keyboard& keyboard, vector<Arrow>& arrows)
+void Ship::handle_input(Keyboard& keyboard)
 {
-    if (!this->_shot) {
+    if (keyboard.is_down(SDLK_SPACE) && !this->_space_was_down) {
         if (keyboard.is_down(SDLK_SPACE)) {
-            this->_shoot(arrows);
-
-            this->_shot = true;
+            this->_shoot();
         }
     }
 
+    this->_space_was_down = keyboard.is_down(SDLK_SPACE);
     this->_do_movement(keyboard);
 }
 
@@ -163,7 +162,23 @@ LinalVector Ship::get_shoot_direction()
     return LinalVector::cross_product(a, b).normalise();
 }
 
-void Ship::_shoot(vector<Arrow>& arrows)
+void Ship::_shoot()
 {
-    arrows.push_back(Arrow(this->get_shoot_direction(), this->model.average_column()));
+    this->arrows.push_back(Arrow(this->get_shoot_direction(), this->model.average_column()));
+}
+
+void Ship::update()
+{
+    for (Arrow& arrow : this->arrows) {
+        arrow.update();
+    }
+}
+
+void Ship::draw(CameraMatrix& camera, PerspectiveMatrix& perspective)
+{
+    this->model.draw(camera, perspective);
+
+    for (Arrow& arrow : this->arrows) {
+        arrow.model.draw(camera, perspective);
+    }
 }

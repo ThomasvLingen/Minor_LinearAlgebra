@@ -18,7 +18,9 @@ public:
 
     LinalModel model;
 
-    void handle_input(Keyboard& keyboard, vector<Arrow>& arrows);
+    void handle_input(Keyboard& keyboard);
+    void update();
+    void draw(CameraMatrix& camera, PerspectiveMatrix& perspective);
 
     LinalVector get_shoot_direction();
 private:
@@ -36,8 +38,11 @@ private:
     double _growth_coeff = 0.01;
     double _shrink_coeff = -0.01;
 
-    bool _shot = false;
-    void _shoot(vector<Arrow>& arrows);
+    bool _space_was_down = false;
+
+    vector<Arrow> arrows;
+
+    void _shoot();
 
     void _do_movement(Keyboard& keyboard);
     void _roll_if_needed(Keyboard& keyboard, MovementStack& movement_stack);

@@ -36,7 +36,6 @@ private:
 
     // Test model thing
     Ship ship;
-    vector<Arrow> arrows;
 
     // GUI elements
     MainMenuBar _main_menu;

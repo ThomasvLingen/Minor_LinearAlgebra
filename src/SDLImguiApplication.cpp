@@ -115,15 +115,9 @@ void SDLImguiApplication::run()
 
         this->_clear_screen();
 
-        this->ship.handle_input(this->keyboard, this->arrows);
-        this->ship.model.draw(this->_camera, this->_perspective);
-
-        // TODO: It would be way cooler if we could let Ship store the arrows
-        // But that's not possible since Ship loses all it's members on a transformation >:(
-        for (Arrow& arrow : this->arrows) {
-            arrow.update();
-            arrow.model.draw(this->_camera, this->_perspective);
-        }
+        this->ship.handle_input(this->keyboard);
+        this->ship.update();
+        this->ship.draw(this->_camera, this->_perspective);
 
         glFlush();
 
