@@ -37,8 +37,8 @@ private:
     double _growth_coeff = 0.01;
     double _shrink_coeff = -0.01;
 
-    bool shot = false;
-    vector<Arrow> arrows;
+    bool _shot = false;
+    vector<Arrow> _arrows;
     void _shoot();
 
     void _do_movement(Keyboard& keyboard);
@@ -51,7 +51,7 @@ private:
     LinalMatrix<double> _get_move_y_matrix(int direction);
     LinalMatrix<double> _get_move_z_matrix(int direction);
 
-    LinalVector get_index_vector(size_t index);
+    LinalVector _get_index_vector(size_t index);
 };
 
 
