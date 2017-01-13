@@ -106,7 +106,7 @@ void SDLImguiApplication::run()
 {
     this->_set_OpenGL_coordinate_mode();
     // This gives it a nicer start position
-    this->ship = LinalMatrix<double>::translation_matrix(0, -200, -750) * this->ship;
+    this->ship.model = LinalMatrix<double>::translation_matrix(0, -200, -750) * this->ship.model;
 
     while (this->_running) {
         this->_handle_SDL_events();
@@ -116,7 +116,7 @@ void SDLImguiApplication::run()
         this->_clear_screen();
 
         this->ship.handle_input(this->keyboard, this->arrows);
-        this->ship.draw(this->_camera, this->_perspective);
+        this->ship.model.draw(this->_camera, this->_perspective);
 
         // TODO: It would be way cooler if we could let Ship store the arrows
         // But that's not possible since Ship loses all it's members on a transformation >:(

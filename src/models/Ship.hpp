@@ -12,10 +12,11 @@
 
 typedef vector<LinalMatrix<double>> MovementStack;
 
-class Ship : public LinalModel {
+class Ship {
 public:
     Ship();
-    Ship(const LinalMatrix<double>& other);
+
+    LinalModel model;
 
     void handle_input(Keyboard& keyboard, vector<Arrow>& arrows);
 
