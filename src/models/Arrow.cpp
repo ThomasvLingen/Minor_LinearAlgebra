@@ -26,8 +26,10 @@ Arrow::Arrow(LinalVector direction, LinalMatrix<double> start_coordinates)
 
 void Arrow::update()
 {
-    LinalMatrix<double> rotation = LinalMatrix<double>::rotate_matrix(Axis::z, this->_rotation_speed, this->model.average_column());
-    LinalMatrix<double> transformation = this->_translation_per_frame * rotation;
+    LinalMatrix<double> rot_z = LinalMatrix<double>::rotate_matrix(Axis::z, this->_rotation_speed, this->model.average_column());
+    LinalMatrix<double> rot_y = LinalMatrix<double>::rotate_matrix(Axis::y, this->_rotation_speed, this->model.average_column());
+    LinalMatrix<double> rot_x = LinalMatrix<double>::rotate_matrix(Axis::x, this->_rotation_speed, this->model.average_column());
+    LinalMatrix<double> transformation = this->_translation_per_frame * rot_x * rot_y * rot_z;
 
     this->model = transformation * this->model;
 }
