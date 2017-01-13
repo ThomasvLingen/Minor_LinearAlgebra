@@ -10,7 +10,7 @@
 ** DONE Vector inproduct
 ** DONE Vector crossproduct
 ** DONE Test vector inproduct / crossproduct
-** TODO Make sure that Matrixes are used efficiently (no double dot products)
+** DONE Make sure that Matrixes are used efficiently (no double dot products)
 ** DONE Make ship controllable [translation]
    Thomas
 ** DONE Make ship controllable [barrel roll]
