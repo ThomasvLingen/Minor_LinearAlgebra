@@ -44,6 +44,8 @@ void LinalModel::draw(CameraMatrix& camera, PerspectiveMatrix& perspective)
 
 LinalMatrix<double> LinalModel::get_screenspace_matrix(CameraMatrix& camera, PerspectiveMatrix& perspective)
 {
+    // Reason perspective and camera are not multiplied beforehand is because in the real world, the camera matrix can
+    // change. This prohibits us from calculating perspective * camera in advance.
     LinalMatrix<double> non_corrected_matrix = perspective.get_matrix() * camera.get_matrix() * *this;
 
     vector<double> x_vec;
