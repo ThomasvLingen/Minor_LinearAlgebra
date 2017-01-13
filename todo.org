@@ -15,11 +15,11 @@
    Thomas
 ** DONE Make ship controllable [barrel roll]
    Thomas
-** TODO Make ship shoot an object
-*** TODO Make ship use composition for LinalModel instead of inheritance
+** DONE Make ship shoot an object
+*** DONE Make ship use composition for LinalModel instead of inheritance
     This is needed in order to make Ship retain its members after a transformation
     Currently, when a Ship is transformed, all members are lost. Which is bad.
-*** TODO Let ship handle arrows
+*** DONE Let ship handle arrows
 ** DONE Reimplement perspective with LinalMatrix
 *** DONE LinalVector normalise
 *** DONE Camera matrix
