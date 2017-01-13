@@ -16,7 +16,14 @@ public:
 
     void update();
 private:
+    const int _rotation_speed = 3;
+    const int _movement_multiplier = 3;
+
+    LinalMatrix<double> _translation_per_frame;
+
     LinalVector _direction;
+
+    LinalMatrix<double> _get_translation_per_frame();
 };
 
 

@@ -21,17 +21,22 @@ Arrow::Arrow(LinalVector direction, LinalMatrix<double> start_coordinates)
     );
 
     this->model = movement_to_start * this->model;
+    this->_translation_per_frame = this->_get_translation_per_frame();
 }
 
 void Arrow::update()
 {
-    LinalMatrix<double> movement = LinalMatrix<double>::translation_matrix(
-        this->_direction[0],
-        this->_direction[1],
-        this->_direction[2]
-    );
-    LinalMatrix<double> rotation = LinalMatrix<double>::rotate_matrix(Axis::z, 1, this->model.average_column());
-    LinalMatrix<double> transformation = movement * rotation;
+    LinalMatrix<double> rotation = LinalMatrix<double>::rotate_matrix(Axis::z, this->_rotation_speed, this->model.average_column());
+    LinalMatrix<double> transformation = this->_translation_per_frame * rotation;
 
     this->model = transformation * this->model;
+}
+
+LinalMatrix<double> Arrow::_get_translation_per_frame()
+{
+    return LinalMatrix<double>::translation_matrix(
+        this->_direction[0] * this->_movement_multiplier,
+        this->_direction[1] * this->_movement_multiplier,
+        this->_direction[2] * this->_movement_multiplier
+    );
 }
