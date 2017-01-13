@@ -26,6 +26,20 @@ Ship::Ship(const LinalMatrix<double>& other)
 
 void Ship::handle_input(Keyboard& keyboard)
 {
+    if (!this->shot) {
+        if (keyboard.is_down(SDLK_SPACE)) {
+            this->_shoot();
+
+            this->shot = true;
+        }
+    }
+
+    this->_do_movement(keyboard);
+}
+
+
+void Ship::_do_movement(Keyboard& keyboard)
+{
     vector<LinalMatrix<double>> movement_stack;
 
     this->_roll_if_needed(keyboard, movement_stack);
@@ -134,4 +148,44 @@ LinalMatrix<double> Ship::_get_move_y_matrix(int direction)
 LinalMatrix<double> Ship::_get_move_z_matrix(int direction)
 {
     return LinalMatrix<double>::translation_matrix(0, 0, this->_move_speed * (double)direction);
+}
+
+LinalVector Ship::get_index_vector(size_t index)
+{
+    return LinalVector(this->values, index);
+}
+
+LinalVector Ship::get_shoot_direction()
+{
+    // Shoot direction indexes
+    const size_t base_index = 10;
+    const size_t plane_1_index = 16;
+    const size_t plane_2_index = 8;
+
+    LinalVector a = this->get_index_vector(plane_1_index) - this->get_index_vector(base_index);
+    LinalVector b = this->get_index_vector(plane_2_index) - this->get_index_vector(base_index);
+
+    // Get cross product to get a vector perpendicular to the top plane of the ship.
+    return LinalVector::cross_product(a, b).normalise();
+}
+
+void Ship::update()
+{
+    for (Arrow& arrow : this->arrows) {
+        arrow.update();
+    }
+}
+
+void Ship::draw(CameraMatrix& camera, PerspectiveMatrix& perspective)
+{
+    LinalModel::draw(camera, perspective);
+
+    for (Arrow& arrow : this->arrows) {
+        arrow.model.draw(camera, perspective);
+    }
+}
+
+void Ship::_shoot()
+{
+    this->arrows.push_back(Arrow(this->get_shoot_direction(), this->average_column()));
 }

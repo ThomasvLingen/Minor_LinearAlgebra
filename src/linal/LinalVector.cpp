@@ -21,6 +21,17 @@ LinalVector::LinalVector(const LinalMatrix<double>& other)
 
 }
 
+LinalVector::LinalVector(const LinalMatrix<double>& matrix, size_t index)
+: LinalVector(
+    matrix.values[0][index],
+    matrix.values[1][index],
+    matrix.values[2][index]
+)
+{
+
+}
+
+
 double LinalVector::in_product(LinalVector& a, LinalVector& b)
 {
     return a[x] * b[x] +
@@ -61,5 +72,3 @@ double LinalVector::length()
         + (*this)[z] * (*this)[z]
     );
 }
-
-

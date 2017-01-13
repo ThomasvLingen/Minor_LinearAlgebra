@@ -14,7 +14,7 @@ class LinalModel : public LinalMatrix<double> {
 public:
     LinalModel(vector<vector<double>> vertices);
     LinalModel(const LinalMatrix<double>& other);
-    void draw(CameraMatrix& camera, PerspectiveMatrix& perspective);
+    virtual void draw(CameraMatrix& camera, PerspectiveMatrix& perspective);
 private:
 
     static const size_t x = 0;

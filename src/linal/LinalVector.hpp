@@ -12,6 +12,7 @@ class LinalVector : public LinalMatrix<double> {
 public:
     LinalVector(double x, double y, double z, double w = 1);
     LinalVector(const LinalMatrix<double>& other);
+    LinalVector(const LinalMatrix<double>& matrix, size_t index);
 
     LinalVector normalise();
     double length();

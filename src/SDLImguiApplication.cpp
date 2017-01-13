@@ -5,6 +5,7 @@
 #include <SDL2/SDL_opengl.h>
 #include "SDLImguiApplication.hpp"
 #include "imgui_impl_sdl.h"
+#include "models/Arrow.hpp"
 
 using std::cout;
 using std::endl;
@@ -115,6 +116,7 @@ void SDLImguiApplication::run()
         this->_clear_screen();
 
         this->ship.handle_input(this->keyboard);
+        this->ship.update();
         this->ship.draw(this->_camera, this->_perspective);
 
         glFlush();
