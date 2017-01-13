@@ -24,11 +24,11 @@ Ship::Ship(const LinalMatrix<double>& other)
 
 }
 
-void Ship::handle_input(Keyboard& keyboard)
+void Ship::handle_input(Keyboard& keyboard, vector<Arrow>& arrows)
 {
     if (!this->_shot) {
         if (keyboard.is_down(SDLK_SPACE)) {
-            this->_shoot();
+            this->_shoot(arrows);
 
             this->_shot = true;
         }
@@ -169,23 +169,7 @@ LinalVector Ship::get_shoot_direction()
     return LinalVector::cross_product(a, b).normalise();
 }
 
-void Ship::update()
+void Ship::_shoot(vector<Arrow>& arrows)
 {
-    for (Arrow& arrow : this->_arrows) {
-        arrow.update();
-    }
-}
-
-void Ship::draw(CameraMatrix& camera, PerspectiveMatrix& perspective)
-{
-    LinalModel::draw(camera, perspective);
-
-    for (Arrow& arrow : this->_arrows) {
-        arrow.model.draw(camera, perspective);
-    }
-}
-
-void Ship::_shoot()
-{
-    this->_arrows.push_back(Arrow(this->get_shoot_direction(), this->average_column()));
+    arrows.push_back(Arrow(this->get_shoot_direction(), this->average_column()));
 }

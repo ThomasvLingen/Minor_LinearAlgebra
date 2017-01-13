@@ -17,9 +17,7 @@ public:
     Ship();
     Ship(const LinalMatrix<double>& other);
 
-    void handle_input(Keyboard& keyboard);
-    void update();
-    void draw(CameraMatrix& camera, PerspectiveMatrix& perspective) override;
+    void handle_input(Keyboard& keyboard, vector<Arrow>& arrows);
 
     LinalVector get_shoot_direction();
 private:
@@ -38,8 +36,7 @@ private:
     double _shrink_coeff = -0.01;
 
     bool _shot = false;
-    vector<Arrow> _arrows;
-    void _shoot();
+    void _shoot(vector<Arrow>& arrows);
 
     void _do_movement(Keyboard& keyboard);
     void _roll_if_needed(Keyboard& keyboard, MovementStack& movement_stack);
