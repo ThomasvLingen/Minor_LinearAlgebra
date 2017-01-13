@@ -30,6 +30,8 @@ void Arrow::update()
         this->_direction[1],
         this->_direction[2]
     );
+    LinalMatrix<double> rotation = LinalMatrix<double>::rotate_matrix(Axis::z, 1, this->model.average_column());
+    LinalMatrix<double> transformation = movement * rotation;
 
-    this->model = movement * this->model;
+    this->model = transformation * this->model;
 }
